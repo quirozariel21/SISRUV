@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Registro - </span>  <span class="subitem" style="color: black;">Formulario de Denuncia</span>
+    </ui:define>
+
+
+    <ui:define name="implementation">
+
+
+
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;" > 
+
+                <p:outputLabel  value="Fecha Registro:" for="fRegistro"/>
+                <p:calendar placeholder="dd/MM/yyyy" id="fRegistro" value="#{dDenunciaController.denuncia.fecha}" 
+                            pattern="dd/MM/yyyy" mask="true" required="true" requiredMessage="Valor requerido, Fecha Registro">
+                    <p:ajax event="dateSelect" process="@this" />
+                </p:calendar>                                     
+                <p:outputLabel style="font-size: 10.5px; color: #666666; font-weight:normal;" value="dia/mes/año"/>
+
+                <br></br>
+                <h5 style="font-weight:bold;">#{msg.identificacion_personal}</h5>
+            </p:panelGrid>
+            <h2>Datos de la Persona en Situacion de Violencia</h2>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;" > 
+
+                <p:outputLabel value="Nombre Completo:" for="n"/>
+                <p:inputText required="true" id="n" value="#{dDenunciaController.denuncia.nombre_victima}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()" requiredMessage="Valor requerido, Nombre(s)"/>
+                <p:outputLabel value="Apellido Paterno:" for="ap"/>
+                <p:inputText id="ap" value="#{dDenunciaController.denuncia.paterno_victima}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, 1er Apellido"/>
+                <p:outputLabel value="Apellido Materno:"/>
+                <p:inputText id="am" value="#{dDenunciaController.denuncia.materno_victima}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()"/>  
+                <p:outputLabel value="Sexo:" for="selectSexvic"/>
+                <p:selectOneMenu id="selectSexvic" value="#{dDenunciaController.denuncia.sexo_victima}" required="true" requiredMessage="Valor requerido, Sexo">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Mujer" itemValue="M" />
+                    <f:selectItem itemLabel="Hombre" itemValue="H" />
+                </p:selectOneMenu>
+                <p:outputLabel  value="Documento de Identidad:" for="civic"/>
+                <p:selectOneMenu id="civic" value="#{dDenunciaController.denuncia.ci_victima}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Documento de Identidad">
+                   <f:selectItem itemLabel="Seleccione" itemValue="" />
+                   <f:selectItems value="#{dT_datosController.itemDocumento}"/> 
+                </p:selectOneMenu>
+                <p:outputLabel value="Numero de Documento" for="nuic"/>
+                <p:inputText id="nuic" value="#{dDenunciaController.denuncia.numero_victima}" style="width: 90%" required="true" requiredMessage="Valor requerido, Numero de Documento">
+                </p:inputText>
+
+                <p:outputLabel value="Edad" for="edvic"/>
+                <p:inputText id="edvic" value="#{dDenunciaController.denuncia.edad_victima}" style="width: 90%" required="true" requiredMessage="Valor requerido, Edad"/>
+                <p:outputLabel value="Cargo que Ocupa" for="edcar"/>
+                <p:inputText id="edcar" value="#{dDenunciaController.denuncia.cargo_victima}" style="width: 90%" required="true" requiredMessage="Valor requerido, Cargo que Ocupa"/>
+            </p:panelGrid>
+            <h2>Datos del Agresor(a)</h2>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;" > 
+
+                <p:outputLabel value="Nombre Completo:" for="Nomb"/>
+                <p:inputText id="Nomb" value="#{dDenunciaController.denuncia.nombre_agresor}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, Nombre Completo"/>
+                <p:outputLabel value="Apellido Paterno:" for="aPat"/>
+                <p:inputText id="aPat" value="#{dDenunciaController.denuncia.paterno_agresor}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, Apellido Paterno"/>
+                <p:outputLabel value="Apellido Materno:"/>
+                <p:inputText id="aMat" value="#{dDenunciaController.denuncia.materno_agresor}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()"/>  
+                <p:outputLabel value="Sexo:" for="selectSexagre"/>
+                <p:selectOneMenu id="selectSexagre" value="#{dDenunciaController.denuncia.sexo_agresor}" required="true" requiredMessage="Valor requerido, Sexo">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Mujer" itemValue="M" />
+                    <f:selectItem itemLabel="Hombre" itemValue="H" />
+                </p:selectOneMenu>
+                <p:outputLabel  value="Documento de Identidad:" for="ciagr"/>
+                <p:selectOneMenu id="ciagr" value="#{dDenunciaController.denuncia.ci_agresor}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Documento de Identidad:">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{dT_datosController.itemDocumento}"/>
+
+                </p:selectOneMenu>
+                <p:outputLabel value="Numero de Documento" for="nugr"/>
+                <p:inputText id="nugr" value="#{dDenunciaController.denuncia.numero_agresor}" style="width: 90%" required="true" requiredMessage="Valor requerido, Numero de Documento">
+
+                </p:inputText>
+                <p:outputLabel value="Edad" for="edagr"/>
+                <p:inputText id="edagr" value="#{dDenunciaController.denuncia.edad_agresor}" style="width: 90%" required="true" requiredMessage="Valor requerido, Edad"/>
+                <p:outputLabel value="Cargo que Ocupa" for="caragr"/>
+                <p:inputText id="caragr" value="#{dDenunciaController.denuncia.cargo_agresor}" style="width: 90%" required="true" requiredMessage="Valor requerido, Cargo que Ocupa"/>
+            </p:panelGrid>
+            <h2>MOTIVO DE LA DENUNCIA Y TIPO DE VIOLENCIA SUFRIDA</h2>
+
+            <h:panelGrid columns="3" width="900">
+                <p:dataList value="#{dDenunciaController.listaResultTipoViolencia}" var="car" type="ordered">
+                    <f:facet name="header">
+                        Seleccione el Tipo de Violencia 
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        <p:commandLink immediate="true" update="formulario" title="Seleccionar" actionListener="#{dDenunciaController.actionDataListTipoViolenciaA()}" styleClass="ui-icon ui-icon-circle-arrow-e" style="float:left;margin-right:10px">
+                            <f:param name="seleccion" value="#{car.id_tdatos}" />
+                        </p:commandLink>
+                        <h:outputText value="#{car.descripcion}" />
+                    </h:panelGrid>
+                </p:dataList>
+
+                <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
+                    <p:commandButton immediate="true" update="formulario" actionListener="#{dDenunciaController.actionSeleccionaTipoViolenciaTodoB()}" icon="ui-icon-circle-triangle-e" style="width: 40px; background: rgb(213, 213, 213) none repeat; border: 1px solid #46506B;"></p:commandButton>
+                    <p:commandButton immediate="true" update="formulario" actionListener="#{dDenunciaController.actionSeleccionaTipoViolenciaTodoA()}" icon="ui-icon-circle-triangle-w" style="width: 40px; background: rgb(213, 213, 213) none repeat; border: 1px solid #46506B;"></p:commandButton>
+                </h:panelGrid>
+
+                <p:dataList value="#{dDenunciaController.listaSelectTipoViolencia}" var="car" type="ordered">
+                    <f:facet name="header">
+                        Tipos de Violencias Seleccionadas
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        <p:commandLink immediate="true" update="formulario" title="Seleccionar" actionListener="#{dDenunciaController.actionDataListTipoViolenciaB()}" styleClass="ui-icon ui-icon-circle-arrow-w" style="float:left;margin-right:10px">
+                            <f:param name="seleccion" value="#{car.id_tdatos}" />
+                        </p:commandLink>
+                        <h:outputText value="#{car.descripcion}" />
+                    </h:panelGrid>
+                </p:dataList>
+            </h:panelGrid>
+            <!--                                </p:panelGrid>-->
+            <h5 style="font-weight:bold;">#{msg.testimonio}</h5> 
+            <p:panelGrid style="font-size: 11px;" columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:inputTextarea placeholder="#{msg.testimonio_detallado}" rows="6" cols="200" value="#{dDenunciaController.denuncia.testimonio}" required="true" requiredMessage="Valor requerido, Testimonio de lo sucedido">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputTextarea>
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                <p:row>
+                    <p:column>
+                        <p:commandButton value="Guardar" actionListener="#{dDenunciaController.add_victima_relacion()}" 
+                                         icon="ui-icon-disk" style="width: 150px;" update=":dialog_confima_add formulario message"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </h:form> 
+
+
+    </ui:define>
+
+</ui:composition>

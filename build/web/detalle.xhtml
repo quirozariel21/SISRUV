@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Busqueda - </span>  <span class="subitem" style="color: black;">CI, Nombres, Otros</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+            
+            <p:growl id="growl" life="2000" />
+            
+            <div class="ui-fluid">
+
+            <p:panelGrid columns="8" columnClasses="ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel style="font-size: 12px;" value="CI:"/>
+                <p:inputText id="aCI" value="#{denunciaController.filtro_persona.numero}"/>
+                <p:outputLabel style="font-size: 12px;" value="1er Apellido:" />
+                <p:inputText id="aPat" value="#{denunciaController.filtro_persona.paterno}"/>
+                <p:outputLabel style="font-size: 12px;" value="2do Apellido:"/>
+                <p:inputText id="aMat" value="#{denunciaController.filtro_persona.materno}"/>
+                <p:outputLabel style="font-size: 12px;" value="Nombre (s):"/>
+                <p:inputText id="Nomb" value="#{denunciaController.filtro_persona.nombre}"/>
+            </p:panelGrid>
+                </div>
+            <div class="ui-fluid">
+            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:commandButton update=":formulario" value="Buscar" actionListener="#{denunciaController.find()}" icon="ui-icon-search" style="width: 150px;"/>
+<!--                <p:commandButton update=":formulario" value="Registro" action="agreg" style="width: 150px;"/>-->
+
+            </p:panelGrid>
+                </div>
+           <br/>
+
+            <p:dataTable id="tableBase" var="busca" value="#{denunciaController.list_base_models}" selectionMode="single" reflow="true" rows="10" paginator="true" 
+                         emptyMessage="No se encontrarón archivos." selection="#{denunciaController.selectedBaseModel}" rowKey="#{busca.usuario_vicagre.victima_agresor_id_vicagre}">
+                <f:facet name="header">
+                    Lista de Registros
+                </f:facet>
+                <p:ajax event="rowSelect" listener="#{denunciaController.onRowSelect}" />
+                <p:column headerText="Nro. Reg." width="25">
+                    <h:outputText value="#{busca.usuario_vicagre.victima_agresor_id_vicagre}" />
+                </p:column>
+                <p:column headerText="Nivel de Riesgo">
+                    <h:outputText value="Riesgo Leve" rendered="#{(busca.victima_agresor.preg_suma ge 0)  and (busca.victima_agresor.preg_suma lt 13 ) }" style="color:#006600; font-weight: bold;"/>
+                    <h:outputText value="Riesgo Moderado" rendered="#{(busca.victima_agresor.preg_suma ge 13) and (busca.victima_agresor.preg_suma lt 22)}" style="color:#CC6600;  font-weight: bold;"/>
+                    <h:outputText value="Riesgo Alto" rendered="#{busca.victima_agresor.preg_suma ge 22 }" style="color:#CC0000; font-weight: bold;"/>
+                </p:column>
+                
+                <p:column headerText="Codigo RUV">
+                    <h:outputText value="#{busca.usuario_vicagre.cod_sistema}" />
+                </p:column>
+
+                <p:column headerText="Nro. Identificacion Victima">
+                    <h:outputText value="#{busca.personaVictima.numero}" />
+                </p:column>
+                <p:column headerText="Victima">
+                    <h:outputText value="#{busca.personaVictima.victima_nombre}" />
+                </p:column>
+
+                <p:column headerText="Nro. Identificacion Agresor">
+                    <h:outputText value="#{busca.personaAgresor.numero}" />
+                </p:column>
+
+                <p:column headerText="Agresor">
+                    <h:outputText value="#{busca.personaAgresor.agresor_nombre}" />
+                </p:column>
+                
+                <p:column width="80" headerText="PDF">
+                    <p:commandButton value="PDF" title="Visualizar PDF" icon="ui-icon-contact" action="#{denunciaController.buttonVerPDF}">
+                        <f:param name="codigo_vicagre" value="#{busca.usuario_vicagre.victima_agresor_id_vicagre}"></f:param>
+                        <f:param name="tipo_violen" value="#{busca.victima_agresor.tviolencia}"></f:param>
+                        <f:param name="tiene_agresor" value="#{busca.personaAgresor.numero}"></f:param>
+                    </p:commandButton>
+                </p:column>
+                
+                <p:column headerText="Estado despues de la Atencion">
+                    <h:outputText value="#{busca.vicAgre_persona.contra_ref_caso_de}" />
+                    <h:outputText style="color: #006699;" value=" #{busca.vicAgre_persona.contra_ref_esp_caso == null ? '' : (' : '.concat(busca.vicAgre_persona.contra_ref_esp_caso))}" />
+                </p:column>
+                
+                <p:column width="80" headerText="Cambiar Estado">                    
+                    <p:commandButton value="Estado" icon="ui-icon-pencil" actionListener="#{denunciaController.datosDialogo()}">	                       
+                        <f:param name="codigoUsuario" value="#{busca.usuario_vicagre.victima_agresor_id_vicagre}"></f:param> 
+                    </p:commandButton>
+                </p:column>
+                
+            </p:dataTable>  
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

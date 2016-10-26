@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Tabla - </span>  <span class="subitem" style="color: black;">#{aplicacionController.selectedDescripcionDatos.descripcion}</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+           <p:dataTable id="table" var="res" value="#{aplicacionController.listaT_datos_app}" selectionMode="single" 
+                        selection="#{aplicacionController.selectT_datos_app}" scrollable="true" scrollHeight="350"
+                         rowKey="#{res.id_tdatos}" style="width: 450px;">
+
+
+                <p:ajax event="rowSelect" listener="#{aplicacionController.onRowSelectModificaTdatos}" />
+                <p:column headerText="CODIGO" width="50">
+                    <h:outputText value="#{res.id_tdatos}" />
+                </p:column>
+                
+                <p:column headerText="NOMBRE TABLA" width="380">
+                    <h:outputText value="#{res.descripcion}" />
+                </p:column>
+
+            </p:dataTable>  
+
+            <br/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+                <p:commandButton value="Crear Registro" icon="ui-icon-newwin"
+                             action="#{aplicacionController.buttonNuevoT_datos}"/>
+            
+            <p:commandButton icon="ui-icon-closethick" value="Cancelar" action="t_datos_app" immediate="true"
+                                update="formulario message" style="width: 150px;" />   
+                </p:panelGrid>
+            
+            
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

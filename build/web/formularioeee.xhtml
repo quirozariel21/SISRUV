@@ -1,0 +1,323 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Registro - </span>  <span class="subitem" style="color: black;">Formulario RUV</span>
+    </ui:define>
+
+
+    <ui:define name="implementation">
+        <p:dialog header="Informacion" modal="true" visible="#{denunciaController.flagDialogAgresor}"
+                  appendTo="@(body)" showEffect="clip" hideEffect="clip"
+                  minimizable="true" maximizable="true"
+                  height="auto" width="auto" resizable="false" id="dialog">
+            <p:ajax event="close" update="dialog" listener="#{denunciaController.handleCloseDialogAgresor}" />
+            <h:form id="formFormularioIII">
+                <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                    <span class="ui-icon ui-icon-alert"></span>
+                    <p:outputLabel value="Esta Seguro de Guardar el Registro...?" ></p:outputLabel>
+                </h:panelGrid>
+                <p:separator style="width:auto; height:4px; background: #6E6E6E;" />
+                <center>
+                    <p:commandButton action="#{denunciaController.botonDialogAddAgresorAceptar}" update="dialog " value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size: 11.5px; font-family: sans-serif;"/>
+                    <p:commandButton actionListener="#{denunciaController.botonDialogAddAgresorCancelar()}" update="dialog " value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size: 11.5px; font-family: sans-serif;"/>
+                </center>
+            </h:form>
+        </p:dialog> 
+
+
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+            <p:tabMenu activeIndex="2" style="font-size: 12px;">                             
+
+                <p:menuitem value="#{msg.recepcion_caso}" action="formeee_forme" update="message" immediate="true" icon="ui-icon-copy" />
+
+
+                <p:menuitem value="#{msg.titulo_relacion}" action="formeee_formee" update="message" immediate="true" icon="ui-icon-copy" />
+                   
+
+                <p:menuitem value="#{msg.datos_agresor}" icon="ui-icon-person"/>
+            </p:tabMenu> 
+
+            <h5 style="font-weight:bold;">#{msg.identificacion_personal}</h5>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel  value="Documento de Identidad:" for="docAgr12"/>
+                <p:selectOneMenu id="docAgr12" value="#{denunciaController.base_model.personaAgresor.codigo_documento}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Documento de Identidad:">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemDocumento}"/>
+                    <p:ajax update="formulario" listener="#{denunciaController.handleCIChange_agre}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Número Documento:" rendered="#{denunciaController.flag_DocIdenAgresor}" for="nuDocm1"/>
+                <p:inputText id="nuDocm1" value="#{denunciaController.base_model.personaAgresor.numero}" style="width: 90%" rendered="#{denunciaController.flag_DocIdenAgresor}"
+                             required="#{denunciaController.flag_DocIdenAgresor}" requiredMessage="Valor requerido, Número de Documento">
+                    <p:ajax event="blur" update="formulario" listener="#{denunciaController.handleKeyEventVerificaCIAgresor}" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Sexo:" for="sVR"/>
+                <p:selectOneMenu id="sVR" value="#{denunciaController.base_model.personaAgresor.sexo}" required="true" requiredMessage="Valor requerido, Sexo">
+                    <p:ajax listener="#{denunciaController.onCountryChange_agresor}" update="formulario" />
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Mujer" itemValue="M" />
+                    <f:selectItem itemLabel="Hombre" itemValue="H" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Estado Civil:" for="esCVr"/>
+                <p:selectOneMenu id="esCVr" value="#{denunciaController.base_model.personaVariableAgresor.est_civil}" required="true" requiredMessage="Valor requerido, Estado Civil">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemECiivil}"/>
+                    <p:ajax listener="#{denunciaController.onCountryChange_agresor}" update="formulario" />
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Nombre(s):" for="nCAgre11"/>
+                <p:inputText id="nCAgre11" value="#{denunciaController.base_model.personaAgresor.nombre}" style="width: 90%" required="true" requiredMessage="Valor requerido, Nombre(s)">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="1er Apellido:" for="aPAgr11"/>
+                <p:inputText id="aPAgr11" value="#{denunciaController.base_model.personaAgresor.paterno}" style="width: 90%" required="true" requiredMessage="Valor requerido, 1er Apellido">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="2do Apellido:"/>
+                <p:inputText value="#{denunciaController.base_model.personaAgresor.materno}" style="width: 90%">  
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Apellido de Casada:" rendered="#{denunciaController.flag_ApCasadaAgresor}"/>
+                <p:inputText value="#{denunciaController.base_model.personaAgresor.ap_casada}" style="width: 90%" rendered="#{denunciaController.flag_ApCasadaAgresor}">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="6" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Fecha Nacimiento:" for="calendar_fecha_nac"/>
+                
+                    <p:calendar id="calendar_fecha_nac" value="#{denunciaController.base_model.personaAgresor.fecha_nac}" locale="es" navigator="true" placeholder="Dia-Mes-Año"
+                                pattern="dd-MM-yyyy"  yearRange="1900:2050" mask="true" required="true" requiredMessage="Valor requerido, Fecha Nacimiento">
+                        <p:ajax event="change" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
+                        <p:ajax event="dateSelect" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
+                    </p:calendar>
+              
+
+                <p:outputLabel value="Lugar de Nacimiento:" for="somLNac"/>
+                <p:selectOneMenu id="somLNac" value="#{denunciaController.base_model.personaAgresor.lugar_nac}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Lugar Nacimiento">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemLugar}"/>
+                    <p:ajax update="formulario" listener="#{denunciaController.handleLNacChange_agre()}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Especifique Lugar:" rendered="#{denunciaController.flag_LNacAgresor}"/>
+                <p:inputText value="#{denunciaController.base_model.personaAgresor.esp_lugar_nac}" style="width: 90%" rendered="#{denunciaController.flag_LNacAgresor}">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Edad:" for="edaGR"/>
+                <p:inputText id="edaGR" value="#{denunciaController.base_model.personaVariableAgresor.edad}" style="width: 70px;" readonly="true"  required="true" requiredMessage="Valor requerido, Edad"/>
+            </p:panelGrid>
+
+            <h5 style="font-weight:bold;">#{msg.lugar_donde_vive}</h5> 
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" > 
+                <p:outputLabel value="Municipio:" for="mUnAgr"/>
+                <p:selectOneRadio  id="mUnAgr" value="#{denunciaController.selectOneRadioMunicioAgresor}" styleClass="selectRadio" required="true" requiredMessage="Valor requerido, Municipio">
+                    <f:selectItem itemLabel="Mismo Municipio" itemValue="0" />
+                    <f:selectItem itemLabel="Otro Municipio" itemValue="1" />
+                    <p:ajax update="formulario" event="click" listener="#{denunciaController.handleMunicipioAgresor()}"/>
+                </p:selectOneRadio>
+                <p:outputLabel value="Nombre Municipio:"  rendered="#{denunciaController.flag_MunicipioAgresor}" for="nMuAgres"/>
+                <p:inputText id="nMuAgres" value="#{denunciaController.base_model.personaVariableAgresor.esp_municipio}" style="width: 90%" rendered="#{denunciaController.flag_MunicipioAgresor}" 
+                             required="#{denunciaController.flag_MunicipioAgresor}" requiredMessage="Valor requerido, Nombre Municipio">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" > 
+                <p:outputLabel value="Barrio o Comunidad:" for="baOcoM"/>
+                <p:selectOneRadio id="baOcoM" value="#{denunciaController.selectOneRadioBarrioAgresor}" styleClass="selectRadio" required="true" requiredMessage="Valor requerido, Barrio o Comunidad">
+                    <f:selectItem itemLabel="Barrio Urbano" itemValue="0" />
+                    <f:selectItem itemLabel="Comunidad Rural" itemValue="1" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneRadio>
+                <p:outputLabel value="Nombre del Barrio o Comunidad:" for="nBaOComun"/>
+                <p:inputText id="nBaOComun" value="#{denunciaController.base_model.personaVariableAgresor.esp_area}" style="width: 90%" required="true" requiredMessage="Valor requerido, Nombre Barrio o Municipio">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel  value="Tenencia de Vivienda:" for="tenVi"/>
+                <p:selectOneMenu id="tenVi" value="#{denunciaController.base_model.personaVariableAgresor.vivienda}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Tenencia Vivienda">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemTenenciaVivienda}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <h5 style="font-weight:bold;">DATOS COMPLEMENTARIOS</h5>  
+            <p:panelGrid columns="6" columnClasses="ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+
+
+                <p:outputLabel value="Nivel Instrucción:" for="somNivInst"/>
+                <p:selectOneMenu id="somNivInst" value="#{denunciaController.base_model.personaVariableAgresor.nivel_inst}" styleClass="ui-helper-reset"
+                                 required="true" requiredMessage="Valor requerido, Nivel de Instrucción">
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemNivelInst}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+                <p:outputLabel value="Condición Actividad:" for="somConAct"/>
+                <p:selectOneMenu id="somConAct" value="#{denunciaController.selectOneRadioCondicion_actAgresor}" styleClass="ui-helper-reset"
+                                 required="true" requiredMessage="Valor requerido, Condición de Actividad">
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItem itemLabel="Trabajo Remunerado" itemValue="0" />
+                    <f:selectItem itemLabel="Trabajo no Remunerado" itemValue="1" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="6" columnClasses="ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel value="Ocupación Principal:" for="somOcuPrin"/>
+                <p:selectOneMenu id="somOcuPrin" value="#{denunciaController.base_model.personaVariableAgresor.ocupacion}" styleClass="ui-helper-reset"
+                                 required="true" requiredMessage="Valor requerido, Ocupación Principal">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{t_datosController.itemOcupacionPrincipal}"/>
+                    <p:ajax update="formulario" event="change" listener="#{denunciaController.handleOcupacionPrincipalAgresor()}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Especifique Ocupacion:" rendered="#{denunciaController.flag_ocupacion_principalAgresor}" for="itEspOcu"/>
+                <p:inputText id="itEspOcu" value="#{denunciaController.base_model.personaVariableAgresor.esp_ocupacion}" style="width: 90%" 
+                             rendered="#{denunciaController.flag_ocupacion_principalAgresor}" required="#{denunciaController.flag_ocupacion_principalAgresor}" requiredMessage="Valor requerido, Especifique Ocupacion">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="8" columnClasses="ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel value="Cargo que Ocupa:" for="itCargOcu11"/>
+                <p:inputText id="itCargOcu11" value="#{denunciaController.base_model.personaVariableAgresor.cargo}" style="width: 100%" required="true" requiredMessage="Valor requerido, Cargo que Ocupa">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Ingreso Económico:" for="somIngEco"/>
+                <p:selectOneMenu id="somIngEco" value="#{denunciaController.base_model.personaVariableAgresor.ingre_economico}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Ingreso Económico:">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{t_datosController.itemIngresoEconomico}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+                <p:outputLabel value="Monto Aprox. Percibe (Bs):"/>
+                <p:inputText id="itMonPersive" value="#{denunciaController.base_model.personaVariableAgresor.monto_aprox_bs}" style="width: 50%">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="El Agresor Consume alcohol:" for="selAgrAlc"/>
+                <p:selectOneRadio id="selAgrAlc" value="#{denunciaController.selectOneRadioMotivoConsumeAlc}" 
+                                  required="true" requiredMessage="Valor requerido, El Agresor Consume alcohol" styleClass="selectRadio" >
+                    <f:selectItem itemLabel="Si" itemValue="1" />
+                    <f:selectItem itemLabel="No" itemValue="0" />
+                    <p:ajax update="formulario" event="click" listener="#{denunciaController.handleMotivoConsumeAlc()}"/>
+                </p:selectOneRadio>
+                <p:outputLabel value="Frecuencia de Consumo alcohol:" rendered="#{denunciaController.flag_ConsumeAlc}"/>
+                <p:selectOneMenu id="somFecConAlc" value="#{denunciaController.base_model.victima_agresor.frec_consumo_alcohol}" 
+                                 rendered="#{denunciaController.flag_ConsumeAlc}" styleClass="ui-helper-reset"
+                                 required="#{denunciaController.flag_ConsumeAlc}" requiredMessage="Valor requerido, Frecuencia de Consumo alcohol">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />     
+                    <f:selectItems value="#{t_datosController.itemFrecuenciaAlcohol}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+            </p:panelGrid>    
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="El Agresor Consume Drogas:" for="selAgrDro"/>
+                <p:selectOneRadio id="selAgrDro" value="#{denunciaController.selectOneRadioMotivoConsumeDro}" 
+                                  required="true" requiredMessage="Valor requerido, El Agresor Consume Drogas" styleClass="selectRadio" >
+                    <f:selectItem itemLabel="Si" itemValue="1" />
+                    <f:selectItem itemLabel="No" itemValue="0" />
+                    <p:ajax update="formulario" event="click" listener="#{denunciaController.handleMotivoConsumeDro()}"/>
+                </p:selectOneRadio>
+                <p:outputLabel value="Frecuencia de Consumo Drogas:" rendered="#{denunciaController.flag_ConsumeDro}"/>
+                <p:selectOneMenu id="somFecConDro" value="#{denunciaController.base_model.victima_agresor.frec_consumo_drogas}" 
+                                 rendered="#{denunciaController.flag_ConsumeDro}" styleClass="ui-helper-reset"
+                                 required="#{denunciaController.flag_ConsumeDro}" requiredMessage="Valor requerido, Frecuencia de Consumo Drogas">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{t_datosController.itemFrecuenciaDrogas}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+            </p:panelGrid> 
+
+            <p:panelGrid id="grow9" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-1" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Pertenece a Grupo LGBTI:"/>
+                <p:selectBooleanCheckbox id="sbcLGBTI" value="#{denunciaController.base_model.personaVariableAgresor.lgbti}">
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectBooleanCheckbox>
+            </p:panelGrid>
+ <h5 style="font-weight:bold;">ESTADO DEL CASO DESPUÉS DE LA ATENCIÓN</h5>
+    <div class="ui-fluid">
+        <!--<p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >-->
+                
+                <p:selectOneRadio id="estadoDenuncia1"  
+                                  required="true" requiredMessage="Valor requerido" styleClass="selectRadio" >
+                    <f:selectItem itemLabel="Caso resuelto" itemValue="0" />
+                    <f:selectItem itemLabel="Caso abandonado" itemValue="1" />
+                    
+                </p:selectOneRadio>
+             <!-- </p:panelGrid> -->
+   
+    <p:outputLabel value="Referencia externa a:"/>
+      
+        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                
+                <p:selectOneRadio id="estadoDenuncia2" layout="responsive" columns="3" 
+                                  required="true" requiredMessage="Valor requerido" styleClass="selectRadio" >
+                   <f:selectItem itemLabel="Defensoria de la Niñez y Adolecencia" itemValue="2" />
+                   <f:selectItem itemLabel="Defensoria del Adulto Mayor" itemValue="3" />
+                   <f:selectItem itemLabel="Otro Servicio Legal Integral Municipal" itemValue="4" />
+                  
+               
+                   <f:selectItem itemLabel="Establecimiento de Salud" itemValue="5" />
+                   <f:selectItem itemLabel="Casa de Acogida y Refugio Temporal" itemValue="6" />
+                   <f:selectItem itemLabel="SIJPLU" itemValue="7" />
+                   
+                   <f:selectItem itemLabel="Fiscalía (Ministerio Público)" itemValue="8" />
+                   <f:selectItem itemLabel="Fuerza Especial de Lucha Contra la Violencia" itemValue="9" />
+                   <f:selectItem itemLabel="Instituto de Investigaciones Forenses" itemValue="10" />
+                   
+                   <f:selectItem itemLabel="SEPDAVI" itemValue="11" />
+                   <f:selectItem itemLabel="ONG" itemValue="12" />
+                   <f:selectItem itemLabel="Otra Instancia" itemValue="13" />
+                    
+                </p:selectOneRadio>
+             </p:panelGrid>
+    </div>
+            <p:panelGrid columns="1" style="width: 100%; text-align:right">
+                <p:row>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-seek-prev" value="Anterior" action="formeee_formee" 
+                                         style="width: 150px;" update="message" immediate="true"/>
+
+                        <p:commandButton value="Modificar" action="#{denunciaController.update_registro()}" update="formulario" icon="ui-icon-disk" rendered="#{denunciaController.flagOpcion}"></p:commandButton>
+                        <p:commandButton value="Guardar" actionListener="#{denunciaController.add_victima_relacion_agresor()}" rendered="#{!denunciaController.flagOpcion}" 
+                                         icon="ui-icon-disk" style="width: 150px;" update="dialog message formulario"/>       
+
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+              
+
+        </h:form> 
+
+
+    </ui:define>
+
+</ui:composition>

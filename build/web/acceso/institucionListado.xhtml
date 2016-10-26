@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Listado - </span>  <span class="subitem" style="color: black;">Instituciones</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">     
+        <ui:remove>
+<!--        <p:dialog header="Informacion" modal="true" visible="#{denunciaController.flagDialogVictimaAgresor}"
+                  appendTo="@(body)" showEffect="clip" hideEffect="clip" style="font-size: 11.5px; font-family: sans-serif;"
+                  minimizable="true" maximizable="true"
+                  height="auto" width="auto" resizable="false" id="dialog_confima_add">
+            <p:ajax event="close" update="message" listener="#{denunciaController.handleCloseDialog}" />
+
+        </p:dialog> -->
+        </ui:remove>
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+
+           <center>
+                
+               <p:dataTable id="tableBase" var="inst" value="#{aInstitucionController.listInstituciones}" selectionMode="single" reflow="true" rows="10" paginator="true" 
+                             emptyMessage="No se encontrarón archivos." selection="#{aInstitucionController.selectedInstitucion}" rowKey="#{inst.id_institucion}">
+                    <p:ajax event="rowSelect" listener="#{aInstitucionController.onRowSelect}" />
+                    
+                    <p:column headerText="Nro" style="width:4%">
+                        <h:outputText value="#{inst.numRegistro}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Institucion" >
+                        <h:outputText value="#{inst.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Dependiente" >
+                        <h:outputText value="#{inst.dependiente}" />
+                    </p:column>
+                    
+                    <p:column headerText="Tipo" >
+                        <h:outputText value="#{inst.tipo}" />
+                    </p:column>
+                         
+                    <p:column width="120">
+                        <p:commandButton value="Add Usuario" id="ajax" update="formulario" actionListener="#{aInstitucionController.buttonAction}" icon="ui-icon-circle-plus"> 	
+                        
+                           <f:param name="codigo" value="#{inst.id_institucion}"></f:param>  
+                       </p:commandButton>
+                    </p:column>
+                    
+                    <p:column width="120">
+                        <p:commandButton value="Ver Usuario" id="ajax1" update="formulario" actionListener="#{aInstitucionController.buttonActionUsuario}" icon="ui-icon-circle-zoomout"> 	
+                           <f:param name="codigo" value="#{inst.id_institucion}"></f:param>  
+                       </p:commandButton>
+                    </p:column>
+                    
+                </p:dataTable>  
+                <br/>
+
+                <p:commandButton value="Crear Institución" icon="ui-icon-newwin"
+                                 action="#{aInstitucionController.buttonNuevaInst}"/>
+                
+            </center>    
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

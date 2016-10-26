@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;"><h:outputLabel rendered="#{!aPerfilController.flag_Perf}" value="Registro"/> <h:outputLabel rendered="#{aPerfilController.flag_Perf}" value="Modificación"/> - </span>  <span class="subitem" style="color: black;">Perfiles</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+            <p:growl id="msgs" showDetail="true" escape="false"/>
+
+            <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Nombre Perfil:" for="nomPerf"/>
+                <p:inputText id="nomPerf" value="#{aPerfilController.perfil.nombre}" style="width: 90%" required="true" requiredMessage="Valor requerido, Nombre De perfil">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>                
+            </p:panelGrid>
+
+            <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Lista de Operaciones:"/>
+                <p:tree id="arbol" value="#{aPerfilController.rootArbolMenu}" var="doc" required="true" requiredMessage="Debe seleccionar por lo menos una Operacion"
+                        selectionMode="checkbox"
+                        selection="#{aPerfilController.selectedNodes}">
+                    <p:treeNode icon="ui-icon-radio-off" expandedIcon="true">
+                        <h:outputText value="#{doc.descripcion}"/>
+                    </p:treeNode>
+                    <p:treeNode type="document" icon="ui-icon-radio-on" expandedIcon="true">
+                        <h:outputText value="#{doc.descripcion}" />
+                    </p:treeNode>
+
+                </p:tree>               
+            </p:panelGrid>
+            <br/>
+            <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                <p:row>
+            <p:commandButton value="Cancelar" update="msgs arbol" icon="ui-icon-cancel" immediate="true"
+                             action="cancela_nuevo_perfil"/>
+
+            <p:commandButton value="Guardar" update="msgs" icon="ui-icon-disk"
+                             action="#{aPerfilController.displaySelectedMultiple(aPerfilController.selectedNodes, usuarioController.usuario.cod_usuario)}" rendered="#{!aPerfilController.flag_Perf}"/>
+            <p:commandButton icon="ui-icon-disk" value="Modificar" action="#{aPerfilController.modificarPerfil(aPerfilController.selectedNodes, usuarioController.usuario.cod_usuario)}" rendered="#{aPerfilController.flag_Perf}"
+                                update="formulario message" style="width: 150px;" />
+            
+            </p:row>
+            </p:panelGrid>  
+        </h:form>
+    </ui:define>
+</ui:composition>

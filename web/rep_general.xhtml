@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Reportes - </span>  <span class="subitem" style="color: black;">Multiple General</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+
+
+            <div class="ui-fluid">
+                <p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">        
+                    <p:dataTable var="dep" value="#{reportGeneralController.listDepartamento}" scrollable="true" scrollHeight="150" style="font-size: 11px;">
+                        <f:facet name="header">
+                            Departamento
+                        </f:facet>    
+
+                        <p:column width="50">
+                            <f:facet name="header">
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventDeselectAllDepartamento}" id="desDep" update="formulario" icon="ui-icon-circle-close" title="Deseleccionar todo" />
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventSelectAllDepartamento}" id="selDep" update="formulario" icon=" ui-icon-circle-check" title="Seleccionar todo" />                            
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{dep.check}">
+                                <p:ajax event="click" listener="#{reportGeneralController.eventSelectDepartamento}" update="formulario"/>
+                            </h:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column headerText="Descripcion" width="200">
+                            <h:outputText value="#{dep.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dataTable rendered="#{reportGeneralController.renderMunicipio}" var="mun" value="#{reportGeneralController.listMunicipio}" 
+                                 scrollable="true" scrollHeight="150" style="font-size: 11px;">
+                        <f:facet name="header">
+                            Municipio
+                        </f:facet>    
+                        <p:column width="50">
+                            <f:facet name="header">
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventSelectAllMunicipio}" id="desMun" update="formulario" icon="ui-icon-circle-close" title="Deseleccionar todo" />
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventSelectAllMunicipio}" id="selMun" update="formulario" icon=" ui-icon-circle-check" title="Seleccionar todo" />                                                    
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{mun.check}">
+                                <p:ajax event="click" listener="#{reportGeneralController.eventSelectMunicipio}" update="formulario"/>
+                            </h:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column headerText="Descripcion" width="200">
+                            <h:outputText value="#{mun.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dataTable rendered="#{reportGeneralController.renderServicio}" var="serv" value="#{reportGeneralController.listServicio}" 
+                                 scrollable="true" scrollHeight="150" style="font-size: 11px;">
+                        <f:facet name="header">
+                            Servicio
+                        </f:facet>    
+                        <p:column width="50">
+                            <f:facet name="header">
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventDeselectAllServicios}" id="desSer" update="formulario" icon="ui-icon-circle-close" title="Deseleccionar todo" />
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventSelectAllServicios}" id="selSer" update="formulario" icon=" ui-icon-circle-check" title="Seleccionar todo" />                                
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{serv.check}">
+                                <p:ajax event="click" listener="#{reportGeneralController.eventSelectServicios}" update="formulario"/>
+                            </h:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column headerText="Descripcion" width="200">
+                            <h:outputText value="#{serv.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dataTable rendered="#{reportGeneralController.renderSubServicio}" var="sub" value="#{reportGeneralController.listSubservicio}" 
+                                 scrollable="true" scrollHeight="150" style="font-size: 11px;">
+                        <f:facet name="header">
+                            Sub Servicio
+                        </f:facet>    
+                        <p:column width="50">
+                            <f:facet name="header">
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventDeselectAllSubServicios}" id="desSub" update="formulario" icon="ui-icon-circle-close" title="Deseleccionar todo" />
+                                <p:commandButton style="width: 25px;" actionListener="#{reportGeneralController.eventSelectAllSubServicios}" id="selsub" update="formulario" icon=" ui-icon-circle-check" title="Seleccionar todo" />                                
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{sub.check}">
+                                <p:ajax event="click" listener="#{reportGeneralController.eventSelectSubServicios}" update="formulario"/>
+                            </h:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column headerText="Descripcion" width="200">
+                            <h:outputText value="#{sub.descripcion}" />
+                        </p:column>
+                    </p:dataTable>              
+                </p:panelGrid>
+                <br/>
+                <p:panelGrid rendered="#{reportGeneralController.renderedFiltro}" columns="7" columnClasses="ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-2,ui-grid-col-5" layout="grid" styleClass="ui-panelgrid-blank">            
+                <p:outputLabel value="Rango de Fechas del:"/>
+                <p:calendar placeholder="Dia-Mes-Año" id="fecha_ini" value="#{reportGeneralController.fecha_ini}" pattern="dd-MM-yyyy" locale="es"
+                            mask="true" required="true"
+                            requiredMessage="Valor requerido, Rando de fecha inicial">
+                    <p:ajax event="change" process="@this" update="@this"/>
+                    <p:ajax event="dateSelect" process="@this" update="@this"/>
+                </p:calendar>
+                <p:outputLabel  value="al:"/>
+                <p:calendar placeholder="Dia-Mes-Año" id="fecha_fin" value="#{reportGeneralController.fecha_fin}" pattern="dd-MM-yyyy" locale="es"
+                            mask="true" required="true" requiredMessage="Valor requerido, Rando de fecha final">
+                    <p:ajax event="change" process="@this" update="@this"/>
+                    <p:ajax event="dateSelect" process="@this" update="@this"/>
+                </p:calendar>
+                
+                <p:outputLabel value="Seleccione Tipo de Reporte:"/>
+                <p:selectOneMenu id="somRecCaso" value="#{reportGeneralController.seleccion_reporte}" styleClass="ui-helper-reset" >
+                    <f:selectItem itemLabel="" itemValue="" />
+                    <f:selectItem itemLabel="Edad" itemValue="Edad" />
+                    <f:selectItem itemLabel="Estado Civil" itemValue="Estado Civil" />
+                    <f:selectItem itemLabel="Nivel Instruccion" itemValue="Nivel Instruccion" />
+                    <f:selectItem itemLabel="Parentesco" itemValue="Parentesco" />
+                    <f:selectItem itemLabel="Violencias" itemValue="Violencias" />                    
+                    <p:ajax listener="#{reportGeneralController.onChangeTipoReporte}" update="formulario message" />
+                </p:selectOneMenu>
+                
+                <p:commandButton immediate="true" update="formulario" actionListener="#{reportGeneralController.limpiarTodo}" style="width: 120px;"
+                                 icon="ui-icon-arrowrefresh-1-n" />
+            </p:panelGrid>
+
+            </div>
+            <p:separator style="height:2px" />
+            <p:chart type="bar" model="#{reportGeneralController.animatedModel}" responsive="true" rendered="#{reportGeneralController.flag_chat}"/>
+            <br/>
+            <div class="ui-fluid">
+                <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                    <p:dataTable var="estado" value="#{reportGeneralController.list_report}" style="width: 755px; font-size: 11px;" 
+                                 rendered="#{reportGeneralController.flag_chat}" emptyMessage="No se encontrarón archivos." >
+                        <f:facet name="header">
+                            #{reportGeneralController.seleccion_reporte}
+                        </f:facet>
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column headerText="DESCRIPCIÓN" width="520"/>
+                                <p:column headerText="HOMBRES" width="45"/>
+                                <p:column headerText="MUJERES" width="45"/>
+                                <p:column headerText="TOTALES" width="45"/>
+                            </p:row>
+                        </p:columnGroup>
+
+                        <p:column headerText="" width="520">
+                            <h:outputText value="#{estado.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="" width="45" style="background: #4BB2C5;">
+                            <h:outputText value="#{estado.hombre}" />
+                        </p:column>
+
+                        <p:column headerText="" width="45" style="background: #EAA228;">
+                            <h:outputText value="#{estado.mujer}" />
+                        </p:column>
+                        <p:column headerText="" width="45" >
+                            <h:outputText value="#{estado.tota}" />
+                        </p:column>
+
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="1" style="text-align:right" footerText="Totales:" />
+                                <p:column footerText="#{reportGeneralController.total_hombres}" />
+
+                                <p:column footerText="#{reportGeneralController.total_mujer}" />
+                                <p:column footerText="#{reportGeneralController.total_neto}" />
+                            </p:row>
+                        </p:columnGroup>
+
+                    </p:dataTable>
+                </p:panelGrid>
+            </div>            
+
+        </h:form> 
+
+
+    </ui:define>
+
+</ui:composition>

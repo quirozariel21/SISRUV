@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="formularioi.xhtml" x="404" y="75" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="496" zoom="true"/>
+        <Node id="welcomePrimefaces.xhtml" x="130" y="554" zoom="true"/>
+        <Node id="formularioiii.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="imprime.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="rep_agresor.xhtml" x="112" y="468" zoom="true"/>
+        <Node id="formularioee.xhtml" x="957" y="534" zoom="true"/>
+        <Node id="login.xhtml" x="133" y="603" zoom="true"/>
+        <Node id="formularioeee.xhtml" x="1047" y="311" zoom="true"/>
+        <Node id="formularioii.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="rep_general.xhtml" x="414" y="552" zoom="true"/>
+        <Node id="detalle.xhtml" x="143" y="292" zoom="true"/>
+        <Node id="codigo.xhtml" x="723" y="22" zoom="true"/>
+        <Node id="rep_victima.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="formularioe.xhtml" x="1052" y="727" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

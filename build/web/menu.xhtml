@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+         <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/main/favicon.png" />
+        </f:facet>
+
+        <title>SISTEMA REGISTRO UNICO DE VIOLENCIA</title>
+        <h:outputStylesheet name="main/css/showcase.css" />
+        <h:outputStylesheet name="main/css/perfect-scrollbar.css" />
+        <h:outputStylesheet name="main/css/sh.css" />
+        <h:outputStylesheet name="main/css/nav.css" />
+        <h:outputScript name="jquery/jquery.js" library="primefaces" />
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+        <h:outputScript name="main/js/perfect-scrollbar.js" />
+        <h:outputScript name="main/js/showcase.js" />
+        <ui:insert name="head" />
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12200033-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+
+            function(e) {
+                var url = $(this).val();
+                if (url.length > 0) {
+                    window.location = url;
+                }
+            }
+        </script>
+        
+        
+        <h:outputStylesheet name="css/bootstrap.min.css" />              
+        
+        <link href="resources/css/style_login.css" rel="stylesheet" type="text/css"/>
+
+    </h:head>
+    <h:body >
+        <!-- INICIO SESSION -->
+        <h:panelGroup rendered="#{loginController.session}">
+            <p:dialog header="Informacion" modal="true" visible="#{usuarioController.flagconfimacion}" id="dialogConfirm" appendTo="@(body)" showEffect="clip" 
+                      hideEffect="clip" minimizable="true" maximizable="true" height="auto" width="auto" resizable="false" >
+                <p:ajax event="close" update="dialogConfirm" listener="#{usuarioController.handleCloseDialog}" />
+                <h:form id="formularioInforma">
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                        <span class="ui-icon ui-icon-alert"></span>
+                        <p:outputLabel value="Esta seguro de Cerrar Session" ></p:outputLabel>
+                    </h:panelGrid>
+                    <p:separator style="width:auto; height:4px; background: #6E6E6E;" />
+                    <center>
+                        <h:outputLink class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" 
+                                      value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                            <h:outputText value="Aceptar"/>
+                        </h:outputLink>
+                        <p:commandLink class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" actionListener="#{usuarioController.actionDialogCancelar}" update="dialogConfirm" value="Cancelar" />
+                    </center>
+                </h:form>
+            </p:dialog> 
+         
+         <!--WRAPPER
+         <div id="wrapper-menu">-->
+         
+         <!--LOGIN FORM
+         <form name="login-form" class="login-form" action="" method="post">-->
+        <!-- INICIO CERRAR SESION
+        class="PFTopLinks floatRight boldFont marginRight20" 
+        class="PFGrayText"
+        class="PFDarkText"
+        -->
+        <!--
+        <h:form id="form_cierra_session">
+          
+          <p:commandLink action="" update="dialogConfirm" class="PFTopLinks floatRight boldFont marginRight20" >
+                <h:graphicImage name="main/images/log_out.png" />
+               <span >Session</span><span >Cerrar</span>
+        </p:commandLink>
+       </h:form>
+        -->
+        <!-- FIN CERRAR SESION-->
+         <h:form>
+            
+            <!-- 
+            <nav class="navbar navbar-default" role="navigation">
+                <span class="navbar-text">
+                <h:graphicImage style="width: 15px; height: 15px;" name="main/images/user.svg" />
+                Usuario <span style="color: #DDDDDD;" >#{usuarioController.usuario.nombre_completo}</span></span>
+                <button type="button" class="btn btn-default navbar-btn">Cerrar Sesion</button>               
+                 
+            </nav>
+            -->
+            <div class="panel">
+             <div class="panel-body">
+                 
+            <div class="container-fluid"> 
+               <center><h:graphicImage name="/img/sippaselogomujeres.png" style="width: 410px; height: 210px;"/></center>
+                <!-- <center><h:graphicImage name="main/images/logosipase.png" style="width: 364px; height: 84px;"/></center> -->
+                <br/>                
+                <div class="row well" style="background: #DEDEDE; ">
+                    <div class="text-center col-md-4" style="padding-top: 10px;">
+                        <span >                    
+                        <h:graphicImage style="width: 14px; height: 14px;" name="main/images/user.svg" />
+                        Usuario <span style="color: #428bca; text-transform: uppercase;" >#{usuarioController.usuario.nombre_completo}</span></span>  
+                    </div>
+                    <div class="text-center col-md-4">
+                        <h4>Seleccione su Panel de Ingreso</h4>
+                    </div>
+                    <div class="text-center col-md-4" style="padding-top: 5px;">
+                        <p:commandLink action="#{usuarioController.actionCerrarSession}" update="dialogConfirm"  >
+                            <h:graphicImage name="main/images/log_out.png" style="width: 32px; height: 32px; "/>
+                            <span>Cerrar </span><span >Sesión</span>
+                        </p:commandLink>
+                    </div>    
+                </div>  
+                
+                <div class="row">
+                    <!--    <div class="well"> -->
+                    <h:panelGroup rendered="#{usuarioController.get_menuRuv()}">
+                    <div class="text-center col-sm-4">
+                     <div class="well" style="background: #EEEEEE;">  
+                        <h4>
+                            <p:commandLink action="#{linkController.obtenerMenu(1)}"> <!-- Segun la BD: RUV corresponde al 1 -->
+                                <h:graphicImage id="ruv" name="main/images/logofinruv.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="aplicacion" value="ruv"></f:param>                                
+                            </p:commandLink>
+                             <p:tooltip id="toolTipRuv" for="ruv" value="#{msg.tooltipRuv}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                     </div>      
+                    </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{usuarioController.get_menuIndicadores()}">
+                    <div class="text-center col-sm-4">
+                         <div class="well" style="background: #EEEEEE;"> 
+                        <h4>
+                            <p:commandLink action="#{linkController.obtenerMenu(3)}"><!-- Segun la BD: INDICADORES corresponde al 3 -->
+                                <h:graphicImage id="indicadores" name="main/images/Indicadores de Eficacia.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="aplicacion" value="indicadores"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipIndicadores" for="indicadores" value="#{msg.tooltipIndicadores}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                         </div>
+                    </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{usuarioController.get_menuDenuncias()}">
+                    <div class="text-center col-sm-4">    
+                         <div class="well" style="background: #EEEEEE;"> 
+                        <h4>
+                            <p:commandLink action="#{linkController.obtenerMenu(2)}"><!-- Segun la BD: MENU corresponde al 2 -->
+                                <h:graphicImage id="denuncias" name="main/images/denuncias.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="aplicacion" value="denuncias"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipDenuncias" for="denuncias" value="#{msg.tooltipDenuncias}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                         </div>     
+                    </div>
+                    </h:panelGroup>   
+                    <h:panelGroup rendered="#{usuarioController.get_menuRejap()}">
+                    <div class="text-center col-sm-4">
+                        <div class="well" style="background: #EEEEEE;"> 
+                        <h4>
+                            <p:commandLink action="#{linkController.actionLink}">
+                                <h:graphicImage id="rejap" name="main/images/certificacionsippase.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="href" value="rejap"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipRejap" for="rejap" value="#{msg.tooltipRejap}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                         </div>
+                    </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{usuarioController.get_menuSea()}">
+                   <div class="text-center col-sm-4">    
+                      <div class="well" style="background: #EEEEEE;"> 
+                        <h4>
+                            <p:commandLink action="#{linkController.actionLink}">
+                                <h:graphicImage id="costeo" name="main/images/costeo.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="href" value="costeo"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipCosteo" for="costeo" value="#{msg.tooltipCosteo}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                       </div>
+                    </div>
+                    </h:panelGroup>
+                     <h:panelGroup rendered="#{usuarioController.get_menuViomap()}">
+                    <div class="text-center col-sm-4">    
+                        <div class="well" style="background: #EEEEEE;">
+                        <h4>
+                            <p:commandLink action="#{linkController.actionLink}">
+                                <h:graphicImage id="viomap" name="main/images/viomap.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="href" value="viomap"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipViomap" for="viomap" value="#{msg.tooltipViomap}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                        </div>   
+                    </div>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{usuarioController.get_menuAdministracion()}">
+                    <div class="text-center col-sm-4">    
+                    
+                        <h4>
+                            <p:commandLink action="#{linkController.obtenerMenu(4)}"><!-- Segun la BD: ADMINISTRACION corresponde al 4 -->
+                                <h:graphicImage id="admin" name="main/images/administracion.png" style="width: 300px; height: 70px;"/>
+                                <f:param name="aplicacion" value="acceso"></f:param> 
+                            </p:commandLink>
+                            <p:tooltip id="toolTipAdmin" for="admin" value="#{msg.tooltipAdmin}" showEffect="puff" hideEffect="puff"/>
+                        </h4>
+                    </div>
+                    </h:panelGroup>
+                   <!-- </div> -->   
+                </div>
+                <hr></hr>
+                <div class="row">
+                    <div class="text-center col-md-6 col-md-offset-3">
+                        <h4>&nbsp;</h4>
+                        <p>Copyright &copy; 2015 &middot; Todos los Derechos Reservados &middot; <a href="http://justicia.gob.bo/" >Ministerio de Justicia</a></p>
+                    </div>
+                </div>
+                <hr></hr>
+                
+                 </div><!-- container -->
+                 </div>
+            </div>
+
+        </h:form>
+        
+      <!--</form>
+      END LOGIN FORM-->
+      
+     </h:panelGroup> <!-- End SESSION -->
+     <h:form>
+            <p:panel rendered="#{!loginController.session}" style="width: 100%; height: 100%;">
+                <center>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Lo sentimos su sesión ha excedido el tiempo límite. Por favor, ingrese de nuevo." style="color: red;"/>
+                    <br/><br/>
+
+                    <p:commandButton value="Inicio" actionListener="#{loginController.buttonIndex}" id="iconOnly" icon="ui-icon-home" title="Regresar al Index" />
+
+                    <br/>
+                    <br/>
+                </center>            
+            </p:panel>
+
+        </h:form>     
+    <!--</div>   END WRAPPER-->   
+    <!--GRADIENT<div class="gradient"></div>END GRADIENT-->       
+    </h:body>
+</html>

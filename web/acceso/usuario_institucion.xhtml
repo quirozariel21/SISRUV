@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Institucion - </span>  <span class="subitem" style="color: black;">Usuario</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <center>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                    <p:outputLabel value="Usuario"/>
+                    <p:outputLabel value="#{aInstitucionController.selectUsuarioInstitucion.username}"></p:outputLabel>
+                    <p:outputLabel value="Nombre Completo"/>
+                    <p:outputLabel value="#{aInstitucionController.selectUsuarioInstitucion.nombre_completo}"></p:outputLabel>
+
+                </p:panelGrid>
+            </center>
+        </h:form> 
+    </ui:define>
+</ui:composition>

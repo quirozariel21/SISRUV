@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Listado - </span>  <span class="subitem" style="color: black;">Usuarios</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <center>
+                <p:dataTable id="tableBase" var="usu" value="#{aUsuariosController.listUsuario}" selectionMode="single" reflow="true" rows="15" paginator="true" 
+                             emptyMessage="No se encontrarón archivos." selection="#{aUsuariosController.selectedUsuario}" rowKey="#{usu.cod_usuario}">
+                
+               <!-- <p:ajax event="rowSelect" listener="#{aUsuariosController.onRowSelect}" />-->
+               
+                
+                <p:column headerText="Nro " style="width:4%;">
+                    <h:outputText value="#{usu.numRegistro}" />
+                </p:column> 
+                
+                <p:column headerText="USUARIO" filterBy="#{usu.username}">
+                    <h:outputText value="#{usu.username}" />
+                </p:column>
+
+                <p:column headerText="NOMBRE" filterBy="#{usu.nombre}">
+                    <h:outputText value="#{usu.nombre_completo}" />
+                </p:column>               
+               
+                <p:column headerText="CI" filterBy="#{usu.ci}">
+                    <h:outputText value="#{usu.ci}" />
+                </p:column> 
+                
+                <p:column headerText="Aplicación Asignada ">
+                    <h:outputText value="#{usu.muestraPerfil}" />
+                </p:column> 
+                
+                
+                <p:column headerText="Activo/Inactivo">                    
+                    <center><h:selectBooleanCheckbox value="#{usu.estado}" /></center>
+                </p:column> 
+    
+                <p:column headerText="Acciones">
+                    
+                    <p:commandButton value="Editar" id="ajax" actionListener="#{aUsuariosController.onEdit}" icon="ui-icon-pencil" > 	
+                        
+                           <f:param name="idUsuario" value="#{usu.cod_usuario}"></f:param>
+                           <f:param name="id_admin" value="#{usuarioController.usuario.cod_usuario}"></f:param> 
+                    </p:commandButton>
+                </p:column>
+              
+            </p:dataTable>  
+                <br/>
+                
+            <p:commandButton value="Registrar Usuario" icon="ui-icon-newwin"
+                             action="#{aUsuariosController.buttonNuevoUsuario}"/>
+</center>
+            
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

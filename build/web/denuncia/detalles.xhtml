@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Detalle de - </span>  <span class="subitem" style="color: black;">Denuncias</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+           
+            <p:dataTable id="table" var="detalle" value="#{dDenunciaController.listadenuncias}" reflow="true" rows="10" paginator="true">
+                        <p:column headerText="Nro. Registro" filterBy="#{detalle.id_denuncia}">
+                            <p:outputLabel value="#{detalle.id_denuncia}"></p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Fecha" filterBy="#{detalle.fecha}">
+                            <p:outputLabel value="#{detalle.fecha}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre Victima" filterBy="#{detalle.nombre_victima}">
+                            <p:outputLabel value="#{detalle.nombre_victima}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Paterno Victima" filterBy="#{detalle.paterno_victima}">
+                            <p:outputLabel value="#{detalle.paterno_victima}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Materno Victima" filterBy="#{detalle.materno_victima}">
+                            <p:outputLabel value="#{detalle.materno_victima}"></p:outputLabel>
+                        </p:column>
+                                                
+                        <p:column headerText="Nombre Agresor" filterBy="#{detalle.nombre_agresor}">
+                            <p:outputLabel value="#{detalle.nombre_agresor}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Paterno Agresor" filterBy="#{detalle.paterno_agresor}">
+                            <p:outputLabel value="#{detalle.paterno_agresor}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Materno Agresor" filterBy="#{detalle.materno_agresor}">
+                            <p:outputLabel value="#{detalle.materno_agresor}"></p:outputLabel>
+                        </p:column>
+
+                        <p:column width="80">
+                            <p:commandButton value="PDF" title="Visualizar PDF" icon="ui-icon-contact" action="#{ddenunciaController.buttonVerPDF}">
+                                <f:param name="id_denuncia" value="#{detalle.id_denuncia}"></f:param>
+                                <f:param name="tipo_violen" value="#{detalle.tviolencia}"></f:param>
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:dataTable>
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>
+

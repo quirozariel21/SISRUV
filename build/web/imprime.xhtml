@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Formulario - </span>  <span class="subitem" style="color: black;">Impreso</span>
+    </ui:define>
+
+
+    <ui:define name="implementation">
+        
+
+
+        <h:form id="formulario">
+            <div class="content">
+                <div class="embed-container">
+                    <iframe src="#{denunciaController.url_servlet}" frameborder="0"></iframe>
+                </div>
+            </div>
+
+            <p:panelGrid columns="1" style="width: 100%; text-align:right">
+                <p:row>
+                    <p:column>
+                        <p:commandButton value="Finalizar" action="imp_det"
+                                         icon="ui-icon-seek-prev" style="width: 150px;"/>       
+                    </p:column>
+                </p:row>
+
+
+            </p:panelGrid>
+            
+        </h:form> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

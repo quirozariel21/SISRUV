@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e7b1558-68b2-42b6-94ce-49d4610c1348">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="107"/>
+	<property name="ireport.y" value="297"/>
+	<style name="colorAlerta">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{preg_suma} < 13]]></conditionExpression>
+			<style forecolor="#006600" isBold="true"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{preg_suma} < 22]]></conditionExpression>
+			<style forecolor="#CC6600" isBold="true"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{preg_suma} >= 22]]></conditionExpression>
+			<style forecolor="#990000" isBold="true"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="cod" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo_ruv" class="java.lang.String"/>
+	<parameter name="logo_sip" class="java.lang.String"/>
+	<parameter name="tipo_violencia" class="java.lang.String"/>
+	<parameter name="detail_dep" class="java.lang.String"/>
+	<parameter name="detail_mun" class="java.lang.String"/>
+	<parameter name="detail_serv" class="java.lang.String"/>
+	<parameter name="detail_sub" class="java.lang.String"/>
+	<parameter name="cod_usuario" class="java.lang.Integer"/>
+	<parameter name="alerta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{preg_suma}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM coco_view_reporte_pdf_va
+WHERE codigo_pdf = $P{cod}]]>
+	</queryString>
+	<field name="codigo_pdf" class="java.lang.Integer"/>
+	<field name="usuario_cod_usuario" class="java.lang.Integer"/>
+	<field name="fecha_reg" class="java.sql.Date"/>
+	<field name="nro_caso" class="java.lang.Integer"/>
+	<field name="cod_sistema" class="java.lang.String"/>
+	<field name="referencia_caso_de" class="java.lang.String"/>
+	<field name="referencia_esp_caso" class="java.lang.String"/>
+	<field name="vic_id_persona" class="java.lang.Integer"/>
+	<field name="vic_nombre" class="java.lang.String"/>
+	<field name="vic_paterno" class="java.lang.String"/>
+	<field name="vic_materno" class="java.lang.String"/>
+	<field name="vic_ap_casada" class="java.lang.String"/>
+	<field name="vic_codigo_documento" class="java.lang.Integer"/>
+	<field name="vic_codigo_documento_detalle" class="java.lang.String"/>
+	<field name="vic_numero" class="java.lang.String"/>
+	<field name="vic_fecha_nac" class="java.sql.Date"/>
+	<field name="vic_edad" class="java.lang.Integer"/>
+	<field name="vic_sexo" class="java.lang.String"/>
+	<field name="vic_est_civil" class="java.lang.Integer"/>
+	<field name="vic_est_civil_detalle" class="java.lang.String"/>
+	<field name="vic_nivel_inst" class="java.lang.Integer"/>
+	<field name="vic_nivel_inst_detalle" class="java.lang.String"/>
+	<field name="vic_condicion_act" class="java.lang.Boolean"/>
+	<field name="vic_ocupacion" class="java.lang.Integer"/>
+	<field name="vic_ocupacion_detalle" class="java.lang.String"/>
+	<field name="vic_esp_ocupacion" class="java.lang.String"/>
+	<field name="vic_ingre_economico" class="java.lang.Integer"/>
+	<field name="vic_ingre_economico_detalle" class="java.lang.String"/>
+	<field name="vic_idiomas" class="java.lang.String"/>
+	<field name="vic_esp_idioma" class="java.lang.String"/>
+	<field name="vic_lgbti" class="java.lang.Boolean"/>
+	<field name="vic_pers_discapacidad" class="java.lang.Boolean"/>
+	<field name="vic_id_pervar" class="java.lang.Integer"/>
+	<field name="lugar_agresion" class="java.lang.Integer"/>
+	<field name="lugar_agresion_detalle" class="java.lang.String"/>
+	<field name="parentesco" class="java.lang.Integer"/>
+	<field name="parentesco_detalle" class="java.lang.String"/>
+	<field name="esp_parentesco" class="java.lang.String"/>
+	<field name="tviolencia" class="java.lang.String"/>
+	<field name="frec_agresiones" class="java.lang.Integer"/>
+	<field name="frec_agresiones_detalle" class="java.lang.String"/>
+	<field name="agr_id_persona" class="java.lang.Integer"/>
+	<field name="agr_nombre" class="java.lang.String"/>
+	<field name="agr_paterno" class="java.lang.String"/>
+	<field name="agr_materno" class="java.lang.String"/>
+	<field name="agr_ap_casada" class="java.lang.String"/>
+	<field name="agr_numero" class="java.lang.String"/>
+	<field name="agr_codigo_documento" class="java.lang.Integer"/>
+	<field name="agr_codigo_documento_detalle" class="java.lang.String"/>
+	<field name="agr_sexo" class="java.lang.String"/>
+	<field name="agr_fecha_nac" class="java.sql.Date"/>
+	<field name="agr_id_pervar" class="java.lang.Integer"/>
+	<field name="agr_edad" class="java.lang.Integer"/>
+	<field name="agr_est_civil" class="java.lang.Integer"/>
+	<field name="agr_est_civil_detalle" class="java.lang.String"/>
+	<field name="agr_esp_area" class="java.lang.String"/>
+	<field name="agr_vivienda" class="java.lang.Integer"/>
+	<field name="agr_vivienda_detalle" class="java.lang.String"/>
+	<field name="agr_nivel_inst" class="java.lang.Integer"/>
+	<field name="agr_nivel_inst_detalle" class="java.lang.String"/>
+	<field name="agr_condicion_act" class="java.lang.Boolean"/>
+	<field name="agr_ocupacion" class="java.lang.Integer"/>
+	<field name="agr_ocupacion_detalle" class="java.lang.String"/>
+	<field name="agr_esp_ocupacion" class="java.lang.String"/>
+	<field name="agr_ingre_economico" class="java.lang.Integer"/>
+	<field name="agr_ingre_economico_detalle" class="java.lang.String"/>
+	<field name="agr_lgbti" class="java.lang.Boolean"/>
+	<field name="agr_pers_discapacidad" class="java.lang.Boolean"/>
+	<field name="preg_suma" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="4" y="3" width="224" height="76" uuid="f2ab9d99-632d-4c74-bb33-3e66bce6d51a"/>
+				<imageExpression><![CDATA[$P{logo_ruv}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="427" y="0" width="145" height="57" uuid="666d935c-ad6f-4285-99f8-7ca387687c18"/>
+				<imageExpression><![CDATA[$P{logo_sip}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="609" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="104" width="114" height="15" uuid="f7c783c8-9c94-408c-a9af-94b0b6a395a0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE COMPLETO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="104" width="311" height="15" uuid="57578d23-e9ec-4d77-9c09-bdffe9742f2d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_nombre}+" "+$F{vic_paterno}+" "+$F{vic_materno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="38" width="118" height="16" uuid="f4af63fe-5030-49e1-99b5-d1b41797713c"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE SERVICIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="22" width="63" height="16" uuid="86f798b9-3080-4d76-bb8b-c4a8a4151efe"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUNICIPIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="6" width="83" height="16" uuid="23c23d4e-15fa-4f1e-8153-fdb506e6dd18"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. SISTEMA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="93" height="16" uuid="d28b57a1-d019-4696-8b84-771be27060f2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="153" height="16" uuid="a0593875-a860-43ef-8d83-3175b0787af2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEPCIÓN DEL CASO DE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="6" width="114" height="16" uuid="c6f1c73e-1c6d-4220-8d12-c8c5dc2b3bf5"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE REGISTRO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="6" width="63" height="16" uuid="1fdcfbfa-37a4-4cdd-86b1-d11dba20ec17"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. CASO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="6" width="75" height="16" uuid="ec3c2c29-9edd-4b04-acaa-368da551a03e"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd-MMM-yyyy ")).format($F{fecha_reg})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="6" width="89" height="16" uuid="d554b5c8-1ffa-4e3d-964a-1116427c64bd"/>
+				<textFieldExpression><![CDATA[$F{nro_caso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="22" width="159" height="16" uuid="9ed94ed6-4695-449c-8720-13d92251efae"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{detail_dep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="22" width="245" height="16" uuid="3e9fb40c-fe61-4107-83bb-55118b11e301"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{detail_mun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="38" width="452" height="16" uuid="de81aec5-1a0b-4bcd-95ae-f0a82314879c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{detail_serv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="6" width="140" height="16" uuid="3ae433ca-5cdb-481e-aed9-42efd0b7eb08"/>
+				<textFieldExpression><![CDATA[$F{cod_sistema}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="54" width="417" height="16" uuid="01534aa0-90b7-4289-ad8d-5b74a5dbd68e"/>
+				<textFieldExpression><![CDATA[$F{referencia_caso_de}.equals("Otra Instancia")?$F{referencia_esp_caso}:$F{referencia_caso_de}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="79" width="572" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="3d92008a-89d8-42c3-b0bf-f4bb6541e9dd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA PERSONA EN SITUACIÓN DE VIOLENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="119" width="145" height="16" uuid="ed8fa914-c545-468b-ba89-b4aba4ea1765"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO DE IDENTIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="119" width="99" height="16" uuid="4524d0c6-6de1-4a28-bae9-4a85d5091b78"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. DOCUMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="135" width="39" height="16" uuid="73444b05-d736-44cc-ac78-1d3bb3c0ea26"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="135" width="35" height="16" uuid="7070812f-fc62-42c6-9eba-39a3ae63a20b"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="119" width="144" height="16" uuid="ea51cc32-5763-47f6-9264-3c33425704fe"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_codigo_documento_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="119" width="175" height="16" uuid="40ebe231-1d9a-4ce2-9c9f-5120c5c7b424"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="135" width="70" height="16" uuid="9100a89d-ed59-4fb1-bc22-fcbf9359e41d"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="135" width="109" height="16" uuid="fd5064bb-1e08-46a2-9587-e073710d115b"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_sexo}.equals("M")?"MUJER":"HOMBRE"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="135" width="145" height="16" uuid="da4b1ab3-1d88-467f-9d63-1bb94a409060"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO CIVIL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="151" width="123" height="16" uuid="a12afffd-9e29-4766-8ce9-e09fdddf784d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL DE INSTRUCCION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="145" height="16" uuid="d82992c4-a30e-41a4-b5bc-6e95af6713a4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDICION DE ACTIVIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="167" width="145" height="16" uuid="485842d8-9fb9-46bc-9069-d2ad2e0b9d26"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OCUPACION PRINCIPAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="167" width="123" height="16" uuid="c39dd6ef-8cd5-43c8-af17-82478d885ab1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INGRESO ECONOMICO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="183" width="145" height="16" uuid="8b749705-6ad8-4532-a25e-ce8c1733f8c4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERTENECE A GRUPO LGBTI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="183" width="158" height="16" uuid="334d7357-e60f-4487-b50e-619ae8cbe0cc"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONA CON DISCAPACIDAD:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="135" width="144" height="16" uuid="7b90c2e2-8451-4fee-a51e-b030913a24c9"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_est_civil_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="151" width="144" height="16" uuid="b6ce9459-c94c-4a8d-9bc0-ae51fb2cd9a1"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_condicion_act}.equals("false")?"Trabajo Remunerado":"Trabajo No Remunerado"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="167" width="144" height="16" uuid="30ebc7cd-a109-4df0-ba16-10feb28c8431"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_ocupacion_detalle}.equals( "Otro" )?$F{vic_esp_ocupacion}:$F{vic_ocupacion_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="183" width="144" height="16" uuid="c9cb91b5-b387-46fd-a978-5f680a448170"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_lgbti}.booleanValue() ? "Si" : "No"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="151" width="151" height="16" uuid="266d1c8c-cf81-47d0-b205-9bc3e4fde420"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_nivel_inst_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="167" width="151" height="16" uuid="bc9759fe-beba-4c5c-b67a-45615f018310"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_ingre_economico_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="183" width="116" height="16" uuid="3418f273-5aae-4355-882c-3a150c264fe9"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vic_pers_discapacidad}.booleanValue() ? "Si" : "No"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="213" width="572" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="e23b57ba-a26c-448c-a7ae-ba2d89790547"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELACIÓN DEL HECHO DE VIOLENCIA EN RAZÓN DE GÉNERO ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="312" width="572" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="885b514b-529c-4ff2-b191-e805eb999618"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL AGRESOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="238" width="225" height="15" uuid="d7ce2737-db74-469a-b6b1-01790d3000ee"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LUGAR DÓNDE  SE PRODUJO LA AGRESIÓN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="253" width="406" height="15" uuid="9cdadd08-8bd3-4fa3-9944-3f9d848b1dc1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELACIÓN DE LA PERSONA EN SITUACIÓN DE VIOLENCIA CON EL AGRESOR(A):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="268" width="104" height="15" uuid="94ae5316-0f0a-450c-a2ad-90c57e96c982"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO DE VIOLENCIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="283" width="159" height="15" uuid="fee2f84c-0039-412e-9fcf-9f72732d33aa"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FRECUENCIA DE LA VIOLENCIA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="237" width="345" height="16" uuid="54e53215-b54d-402a-b40f-df777367231b"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lugar_agresion_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="253" width="164" height="15" uuid="544aceef-e6a6-4076-8e1f-0b53c7bd12f8"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parentesco_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="267" width="192" height="16" uuid="d54a26d3-3ac9-4920-a82e-021bf513f608"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipo_violencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="283" width="411" height="16" uuid="d8ef62b7-8da8-4b57-9365-a8eff8c07623"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frec_agresiones_detalle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="352" width="145" height="16" uuid="f8319b62-bd50-4dac-94c0-6ff62db1876e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO DE IDENTIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="368" width="35" height="16" uuid="81cc5510-0f43-4595-a4ee-fce61eb53551"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="416" width="145" height="16" uuid="33af460c-8348-44f1-926d-0b9ca5533ece"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OCUPACION PRINCIPAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="384" width="145" height="16" uuid="8653ff9f-bb4a-4c33-9564-8a1748f88e94"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION ACTUAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="384" width="155" height="16" uuid="19027359-c41b-4466-8555-9bb046ad80f4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TENENCIA DE VIVIENDA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="432" width="145" height="16" uuid="74a2b036-80c7-496f-9984-2b3558769123"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERTENECE A GRUPO LGBTI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="337" width="114" height="15" uuid="093f63ad-c031-4e2f-9ca1-cfb22d96d138"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE COMPLETO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="432" width="158" height="16" uuid="73084741-8b6c-40da-8d7c-fc0266c3313e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONA CON DISCAPACIDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="368" width="39" height="16" uuid="c6cc72f2-b582-4e84-9f08-90830a86c49a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="352" width="99" height="16" uuid="d93da554-3b3a-4708-95bf-eedd63a94b8f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO. DOCUMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="368" width="145" height="16" uuid="4be8abaf-0ff4-47e5-a499-14b535af59fc"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO CIVIL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="416" width="155" height="16" uuid="ae2bebfd-7a6a-4a78-afb2-ae1eb4acab62"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INGRESO ECONOMICO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="337" width="456" height="15" uuid="c281bd3f-e386-4678-a50b-4ce15aa19368"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_nombre}+" "+$F{agr_paterno}+" "+$F{agr_materno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="352" width="144" height="16" uuid="a9f929b0-9b26-448a-af68-c33102daf18b"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_codigo_documento_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="368" width="144" height="16" uuid="fe7e2423-b33a-4517-9b9a-40397bc97323"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_est_civil_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="368" width="84" height="16" uuid="79c77a58-c739-4069-ada6-fc620c91d6f8"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="368" width="109" height="16" uuid="74afd454-0ceb-4f66-9ac5-879c0e1dd58f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_sexo}.equals("M")?"MUJER":"HOMBRE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="352" width="175" height="16" uuid="5fdf22da-71d2-4972-beee-d981b2748d4f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="296" y="400" width="155" height="16" uuid="5f77bd8e-e44d-4f56-a5d4-33aa18ecd34e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL INSTRUCCION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="400" width="145" height="16" uuid="323c6182-1b36-4d76-94aa-c710957187a7"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDICION DE ACTIVIDAD:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="416" width="144" height="16" uuid="f5ccd215-6472-43b5-8e79-755b2747d4af"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_ocupacion_detalle}.equals( "Otro" )?$F{agr_esp_ocupacion}:$F{agr_ocupacion_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="416" width="119" height="16" uuid="b964b3a3-8f9e-4aef-9be2-14a4bb7b05b5"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_ingre_economico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="432" width="144" height="16" uuid="7b70fb8c-aa74-42ea-a146-a2561b531ed9"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_lgbti}.booleanValue() ? "Si" : "No"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="432" width="116" height="16" uuid="8aadacb2-5896-41f7-9152-117b14dfdfd8"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_pers_discapacidad}.booleanValue() ? "Si" : "No"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="400" width="144" height="16" uuid="17d8659d-c398-403b-af49-179cf0d3e241"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_condicion_act}.equals("false")?"Trabajo Remunerado":"Trabajo No Remunerado"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="400" width="119" height="16" uuid="d2a2a5fa-f2ab-4acb-8980-6112adbeacc7"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_nivel_inst_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="384" width="144" height="16" uuid="234b0f0f-8d92-4108-91dd-967ec390b191"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_esp_area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="384" width="119" height="16" uuid="69a370f3-3b3b-46ef-b222-985bfc0b9e06"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agr_vivienda_detalle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="48" y="554" width="125" height="16" uuid="693d254c-5fa6-423a-81f9-73ef3f5014e7"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre y Firma - Denunciante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="554" width="187" height="16" uuid="6f5e16b8-0b65-45d1-8c19-3a5198ca7f4d"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre y Firma - Servidor o Servidora Publica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="268" width="100" height="15" uuid="ee5f213f-0e2a-4677-8d1a-bdf9333b016b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL DE RIESGO: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="colorAlerta" x="396" y="268" width="174" height="15" uuid="a9efdbb9-9be5-4768-9317-e338a5ae451d"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{preg_suma} < 13 )? "RIESGO LEVE":
+($F{preg_suma} < 22 )? "RIESGO MODERADO":"RIESGO ALTO"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="6" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="406" y="0" width="164" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="31cf62e0-f040-4767-8b8b-9e38b9697713"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ministerio de Justicia de Bolivia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="53" y="0" width="199" height="14" uuid="c5d31505-f4cf-492a-8a84-9e65b268ac91"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd-MMMMMMM-yyyy ")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="53" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="f01fc1cd-05b9-4ee4-b41c-b6d6be8ae000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Impreso el:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="4" splitType="Stretch"/>
+	</summary>
+</jasperReport>

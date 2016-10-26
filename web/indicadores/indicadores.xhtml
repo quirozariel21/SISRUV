@@ -1,0 +1,186 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Indicadores - </span>  <span class="subitem" style="color: black;"></span>
+    </ui:define>
+
+    <ui:define name="content">
+    
+        <p:growl id="message" sticky="false" life="3000" />  
+        <h:form id="formulario">
+            <div class="ui-fluid">
+                
+                <p:panelGrid columns="1" 
+                             columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" 
+                             layout="grid" 
+                             styleClass="ui-panelgrid-blank panelNoBorder" 
+                             style="font-size: 11px;" >
+                    
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel  value="Institucion:"/>                    
+                        <p:selectOneMenu id="institucion" value="#{indicadoresBean.institucion}" 
+                                         required="true" 
+                                         styleClass="ui-helper-reset" 
+                                         requiredMessage="Valor requerido, Instituciòn">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItems value="#{indicadoresBean.instituciones}"/>
+                            <p:ajax update="testContainer" 
+                                    event="change" 
+                                    process="@this"/>
+                        </p:selectOneMenu>                    
+                    </h:panelGrid>
+                    
+                    <p:outputPanel id="testContainer" >
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel  id="labelIndicador" 
+                                            value="Indicador:"
+                                            style="width:225px"
+                                            rendered="#{indicadoresBean.institucion eq 'Organo Judicial'}"
+                                            />
+                            <p:selectOneMenu id="selectIndicador" 
+                                             value="#{indicadoresBean.indicador}" 
+                                             rendered="#{indicadoresBean.institucion eq 'Organo Judicial'}"
+                                             required="true" 
+                                             styleClass="ui-helper-reset" 
+                                             requiredMessage="Valor requerido, Indicador">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItems value="#{indicadoresBean.indicadores}"
+                                               var="indicador"
+                                               itemLabel="#{indicador.tipoIndicador}"
+                                               itemValue="#{indicador.tipoIndicador}"/>                                
+                                <p:ajax listener="#{indicadoresBean.handleTipoIndicador}" update="panelFormulaCalculo" />                                                      
+                            </p:selectOneMenu>
+                        </h:panelGrid>    
+                    </p:outputPanel>
+                    
+                    <p:outputPanel id="panelFormulaCalculo"  >
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel  id="labelFormulaCalculo" 
+                                            style="width:125px"
+                                            value="Formula de Calculo:"                                        
+                                            rendered="#{not empty indicadoresBean.indicador or indicadoresBean.indicador ne null}"/>
+                            <p:inputText value="#{indicadoresBean.formulaCalculo}"
+                                         rendered="#{not empty indicadoresBean.indicador}"
+                                         style="width: 550px;" 
+                                         readonly="true" />                                           
+
+                            <p:outputLabel  id="labelTerritorio" 
+                                            value="Territorio:"                                        
+                                               rendered="#{not empty indicadoresBean.indicador}"/>
+                            <p:selectOneMenu id="selectTerritorio" value="#{indicadoresBean.territorio}" 
+                                             style="width:125px"
+                                             rendered="#{not empty indicadoresBean.indicador}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="Nacional" itemValue="Nacional" />
+                                <f:selectItem itemLabel="Departamental" itemValue="Departamental" />
+                                <f:selectItem itemLabel="Municipio" itemValue="Municipio" />
+                            </p:selectOneMenu>                                                                                                                                                      
+
+                            <p:outputLabel  id="labelPeriodoReferencia" 
+                                            value="Periodo de Referencia:"                                        
+                                            rendered="#{not empty indicadoresBean.indicador}"/>
+                            <p:selectOneMenu id="selectPeriodoReferencia" value="#{indicadoresBean.periodoReferencia}" 
+                                             rendered="#{not empty indicadoresBean.indicador}"
+                                             style="width:125px">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="Semestral" itemValue="Semestral" />
+                                <f:selectItem itemLabel="Anual" itemValue="Anual" />                                    
+                            </p:selectOneMenu>
+                                                        
+                            <p:commandLink value="+Add" 
+                                           rendered="#{not empty indicadoresBean.indicador}"                                         
+                                           oncomplete="PF('test').show()"
+                                           />                                                                                                                                            
+                        </h:panelGrid>                                                                                                    
+                    
+                        <p:commandButton id="idGuardar"
+                                      value="Guardar" 
+                                      style="width: 250px;"
+                                      actionListener="#{indicadoresBean.guardarIndicador}"
+                                      icon="ui-icon-check"   
+                                      update="panelDataIndicadores"
+                                      rendered="#{not empty indicadoresBean.indicador}"
+                                       />                         
+                        
+                    </p:outputPanel>                                                                                                  
+                </p:panelGrid>                                                                                              
+            </div>
+            
+            <div class="ui-fluid">
+                <p:panelGrid columns="1" layout="grid" 
+                             styleClass="ui-panelgrid-blank panelNoBorder" 
+                             style="font-size: 11px;" 
+                             id="panelDataIndicadores"> 
+                    
+                    <p:dataTable id="tableBase" var="indicador" value="#{indicadoresBean.dataIndicadores}">
+                        <p:column headerText="Institucion">
+                            <h:outputText value="#{indicador.institucion}" />
+                        </p:column>
+                        <p:column headerText="Indicador">
+                            <h:outputText value="#{indicador.tipoIndicador}" 
+                                         style="width: 90%" 
+                                         />
+                        </p:column>
+                        <p:column headerText="Formula de Calculo de Indicador">
+                            <h:outputText value="#{indicador.formulaCalculo}" />
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                             <p:commandButton update=":formulario:carDetail" oncomplete="PF('chartDialog').show()" 
+                                              icon="ui-icon-search" 
+                                              title="Ver Grafico">
+                                <f:setPropertyActionListener 
+                                    value="#{indicador.tiposViolencia}" 
+                                        target="#{indicadoresBean.selectedViolencia}" />
+                            </p:commandButton>
+                        </p:column>                       
+                    </p:dataTable> 
+
+                </p:panelGrid>
+            </div>
+            
+            <div class="ui-fluid">                               
+                <p:dialog modal="true" width="500" height="500" 
+                          widgetVar="test"
+                          id="dialog"
+                          header="Registrar tipos de Violencia">
+                        <p:dataList value="#{indicadoresBean.tiposViolencia}" 
+                                                var="violencia" 
+                                                type="ordered" 
+                                                itemType="none"                                          
+                                                >
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel value="#{violencia.nombre}"  style="width:125px"/>
+                                <p:inputText value="#{violencia.cantidad}"                                         
+                                     style="width: 50px;" 
+                                      />
+                            </h:panelGrid>                                       
+                        </p:dataList>               
+                </p:dialog>                 
+            </div>
+            
+        <p:dialog header="Grafico" 
+                  widgetVar="chartDialog" 
+                  modal="true" 
+                  width="980" height="500"
+                  showEffect="fade" 
+                  hideEffect="fade" 
+                  resizable="true">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:chart type="pie" model="#{indicadoresBean.pieModel1}" style="width:600px;height:500px" />
+        </p:outputPanel>
+    </p:dialog>
+            
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
+
+
+

@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;"><h:outputLabel rendered="#{!aUsuariosController.flag_Usua}" value="Registro"/> <h:outputLabel rendered="#{aUsuariosController.flag_Usua}" value="Modificación"/></span>  <span class="subitem" style="color: black;">Usuarios</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:dialog header="Informacion" modal="true" visible="#{denunciaController.flagDialogVictimaAgresor}"
+                  appendTo="@(body)" showEffect="clip" hideEffect="clip" style="font-size: 11.5px; font-family: sans-serif;"
+                  minimizable="true" maximizable="true"
+                  height="auto" width="auto" resizable="false" id="dialog_confima_add">
+            <p:ajax event="close" update="message" listener="#{denunciaController.handleCloseDialog}" />
+
+        </p:dialog> 
+
+       <p:growl id="message" sticky="false" life="3000" />
+    
+        <h:form id="formulario">
+
+            <h:panelGrid columns="2" id="matchGrid" cellpadding="5">     
+               <p:outputLabel value="Nombre de Usuario" for="nom_usu"/>
+                <p:inputText required="true" id="nom_usu" value="#{aUsuariosController.usuario.username}" style="width: 130px;" 
+                             requiredMessage="Valor requerido, Nombre Completo">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <h:outputLabel for="pwd1" value="Contraseña: *" />
+                <p:password id="pwd1" value="#{aUsuariosController.usuario.password}" match="pwd2" label="Password 1" required="true" validatorMessage="los datos no coinciden" >
+                    <f:validateLength minimum="8" />
+                </p:password>
+
+                <h:outputLabel for="pwd2" value="Confirme su Contraseña: *" />
+                <p:password id="pwd2" value="#{aUsuariosController.usuario.password}" label="Password 2" required="true" >
+                    <f:validateLength minimum="8" />
+                </p:password>
+            </h:panelGrid>
+            
+            <p:panelGrid columns="6" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel value="Nombre:" for="nombre"/>
+                <p:inputText required="true" id="nombre" value="#{aUsuariosController.usuario.nombre}" style="width: 90%" 
+                             onkeyup="this.value = this.value.toUpperCase()" requiredMessage="Valor requerido, Nombre Completo">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Apellido Paterno:" for="paterno"/>
+                <p:inputText id="paterno" value="#{aUsuariosController.usuario.paterno}" style="width: 90%" 
+                             onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, Apellido Paterno">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Apellido Materno:"/>
+                <p:inputText id="materno" value="#{aUsuariosController.usuario.materno}" style="width: 90%" 
+                             onkeyup="this.value = this.value.toUpperCase()">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel  value="Documento de Identidad:" for="doc"/>
+                <p:selectOneMenu id="doc" value="#{aUsuariosController.usuario.codigo_exp}" styleClass="ui-helper-reset">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{aUsuariosController.itemDocumento}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+                <p:outputLabel value="Numero de Documento" for="nuic"/>
+                <p:inputText id="nuic" value="#{aUsuariosController.usuario.ci}" style="width: 130px;;">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>    
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Direccion" for="dir"/>
+                <p:inputText id="dir" value="#{aUsuariosController.usuario.direccion}" style="width: 250px;" 
+                             onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, Direccion">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="E-mail:" for="ema"/>
+                <p:inputText required="true" id="ema" value="#{aUsuariosController.usuario.e_mail}" style="width: 160px;" 
+                             requiredMessage="Valor requerido, E-mail">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel value="Telefono:"/>
+                <p:inputText id="tel" value="#{aUsuariosController.usuario.telefono}" style="width: 90%" 
+                             required="true" requiredMessage="Valor requerido, Telefono">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Celular:"/>
+                <p:inputText required="true" id="cel" value="#{aUsuariosController.usuario.celular}" style="width: 130px;" 
+                             requiredMessage="Valor requerido, Celular">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Estado: " rendered="#{aUsuariosController.flag_Estado}"/>
+                <p:selectOneRadio id="selmun" value="#{aUsuariosController.selectOneRadioEstado}" styleClass="selectRadio" required="true" requiredMessage="Valor requerido, Estado" rendered="#{usuariosController.flag_Estado}">
+                    <f:selectItem itemLabel="Activo" itemValue="1" />
+                    <f:selectItem itemLabel="No Activo" itemValue="0" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneRadio>
+
+            </p:panelGrid>
+
+            <p:panelGrid id="panelfiltro" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel  value="Departamento:" for="depar"/>
+                <p:selectOneMenu id="depar" value="#{aUsuariosController.usuario.departamento}" styleClass="ui-helper-reset">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{aUsuariosController.itemDepartamento}"/>
+                    <p:ajax update="panelfiltro" listener="#{aUsuariosController.handleDptoChange}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+                <p:outputLabel  value="Municipio:" for="munic"/>
+                <p:selectOneMenu id="munic" value="#{aUsuariosController.usuario.municipio}" styleClass="ui-helper-reset">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{aUsuariosController.itemMuni}"/>
+                    <p:ajax update="panelfiltro" listener="#{aUsuariosController.handleMunChange}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+                <p:outputLabel  value="Servicio:" for="serv"/>
+                <p:selectOneMenu id="serv" value="#{aUsuariosController.usuario.cod_servicio}" styleClass="ui-helper-reset" >
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{aUsuariosController.itemServ}"/>
+                    <p:ajax update="panelfiltro" listener="#{aUsuariosController.handleServChange}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+
+                <p:outputLabel  value="SubServicio:" for="subserv"/>
+                <p:selectOneMenu id="subserv" value="#{aUsuariosController.usuario.cod_sub_servicio}" styleClass="ui-helper-reset" >
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{aUsuariosController.itemSubServ}"/>
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel  value="Lista de Perfiles:" for="listPerfil"/>
+                <p:selectManyCheckbox id="listPerfil" value="#{aUsuariosController.selectedPerfil}" 
+                                      layout="responsive" 
+                                      columns="2" 
+                                      styleClass="selectRadio" 
+                                      required="true" 
+                                      requiredMessage="Valor requerido, Escoja por lo menos un Perfil">                                    
+                    <f:selectItems value="#{aUsuariosController.itemPerfil}" var="perfil" itemLabel="#{perfil.nombre}" itemValue="#{perfil.cod_perfil}" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectManyCheckbox>                                     
+            </p:panelGrid>
+            
+             <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                <p:row>
+                    <p:column>
+                         <p:commandButton icon="ui-icon-disk" value="Guardar" action="#{aUsuariosController.buttonGuardaUsuario(usuarioController.usuario.cod_usuario)}" rendered="#{!aUsuariosController.flag_Usua}"
+                                update="formulario message " style="width: 250px;" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk" value="Modificar" action="#{aUsuariosController.buttonModificarUsuario(usuarioController.usuario.cod_usuario)}" rendered="#{aUsuariosController.flag_Usua}"
+                                update="formulario message " style="width: 250px;" />
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+            
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

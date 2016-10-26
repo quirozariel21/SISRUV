@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;"><h:outputLabel rendered="#{!aInstitucionController.flag_Inst}" value="Registro"/> <h:outputLabel rendered="#{aInstitucionController.flag_Inst}" value="Modificación"/></span>  <span class="subitem" style="color: black;">Instituciones</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                <p:outputLabel value="Institucion:" for="nombre"/>
+                <p:inputText required="true" id="nombre" value="#{aInstitucionController.institucion.nombre}" style="width: 90%" 
+                             onkeyup="this.value = this.value.toUpperCase()" requiredMessage="Valor requerido, Nombre Completo">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Dependiente:" for="dep"/>
+                <p:inputText id="dep" value="#{aInstitucionController.institucion.dependiente}" style="width: 90%" 
+                             onkeyup="this.value = this.value.toUpperCase()" required="true" requiredMessage="Valor requerido, Apellido Paterno">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>
+                <p:outputLabel value="Tipo:" for="tipo"/>
+                <p:selectOneMenu id="tipo" value="#{aInstitucionController.institucion.tipo}" required="true" requiredMessage="Valor requerido, Sexo">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItem itemLabel="Denuncia" itemValue="denuncia" />
+                    <f:selectItem itemLabel="Indicador" itemValue="indicador" />
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                <p:row>
+                    <p:column>
+                         <p:commandButton icon="ui-icon-disk" value="Guardar" action="#{aInstitucionController.insertInstitucion()}" rendered="#{!aInstitucionController.flag_Inst}"
+                                update="formulario message" style="width: 250px;" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk" value="Modificar" action="#{aInstitucionController.modificarInstitucion()}" rendered="#{aInstitucionController.flag_Inst}"
+                                update="formulario message" style="width: 250px;" />
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

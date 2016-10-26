@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Reportes - </span>  <span class="subitem" style="color: black;">De Victima</span>
+    </ui:define>
+    
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+
+
+            <div class="ui-fluid">
+    <p:panelGrid columns="5" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-5" layout="grid" styleClass="ui-panelgrid-blank">            
+                <p:outputLabel value="Rango de Fechas del:"/>
+                <p:calendar placeholder="Dia-Mes-Año" id="fecha_ini" value="#{reportsController.fecha_ini}" pattern="dd-MM-yyyy" locale="es"
+                            mask="true" required="true"
+                            requiredMessage="Valor requerido, Rando de fecha inicial">
+                    <p:ajax event="change" process="@this" update="@this"/>
+                    <p:ajax event="dateSelect" process="@this" update="@this"/>
+                </p:calendar>
+                <p:outputLabel  value="al:"/>
+                <p:calendar placeholder="Dia-Mes-Año" id="fecha_fin" value="#{reportsController.fecha_fin}" pattern="dd-MM-yyyy" locale="es"
+                            mask="true" required="true" requiredMessage="Valor requerido, Rando de fecha final">
+                    <p:ajax event="change" process="@this" update="@this"/>
+                    <p:ajax event="dateSelect" process="@this" update="@this"/>
+                </p:calendar>
+            </p:panelGrid>
+                </div>
+            <div class="ui-fluid">
+    <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                <p:outputLabel value="Seleccione Tipo de Reporte:"/>
+                <p:selectOneMenu id="somRecCaso" value="#{reportsController.seleccion_reporte}" styleClass="ui-helper-reset" style="width: 350px;">
+                    <f:selectItem itemLabel="" itemValue="" />
+                     <!--
+                    <f:selectItem itemLabel="Edad" itemValue="Edad" />
+                    <f:selectItem itemLabel="Estado Civil" itemValue="Estado Civil" />
+                    <f:selectItem itemLabel="Nivel Instruccion" itemValue="Nivel Instruccion" />
+                    <f:selectItem itemLabel="Parentesco" itemValue="Parentesco" />
+                    <f:selectItem itemLabel="Violencias" itemValue="Violencias" />   
+                    -->
+                    <!-- REPORTES SIMPLES -->
+                    <f:selectItem itemLabel="Sexo de las Victimas" itemValue="Victimas por Sexo" />  
+                    <f:selectItem itemLabel="Victimas en Gestacion" itemValue="Victimas en Gestacion" />  
+                    <f:selectItem itemLabel="Numero de Hijos" itemValue="Numero de Hijos" />  
+                    <f:selectItem itemLabel="Edades de las Victimas" itemValue="Edades de las Victimas" />  
+                    
+                    <f:selectItem itemLabel="Tenencia de Vivienda" itemValue="Tenencia de Vivienda de las Victimas" />    
+                    <f:selectItem itemLabel="Estado Civil" itemValue="Estado Civil de las Victimas" /> 
+                    <f:selectItem itemLabel="Ocupacion Principal" itemValue="Ocupacion de las Victimas" /> 
+                    <f:selectItem itemLabel="Ingreso Economico" itemValue="Ingreso Economico de las Victimas" />
+                    <f:selectItem itemLabel="Nivel de Instruccion" itemValue="Nivel de Instruccion de las Victimas" /> 
+                     <!-- <f:selectItem itemLabel="Condicion de Actividad" itemValue="Condicion" />  -->
+                    <f:selectItem itemLabel="Municipio donde Vive" itemValue="Municipio Donde Viven las Victimas" /> 
+                    <f:selectItem itemLabel="Area donde Vive" itemValue="Area Donde Viven las Victimas" />  
+                    <f:selectItem itemLabel="Condicion de Actividad" itemValue="Condicion de Actividad de las Victimas" />  
+                    <f:selectItem itemLabel="Pertenencia a Pueblo Originario" itemValue="Pertenencia a Pueblo Indigena Originario"/>
+                    <f:selectItem itemLabel="Pertenencia a Grupo LGTB" itemValue="Pertenencia a Grupo LGTB"/>
+                    <f:selectItem itemLabel="Victimas con Discapacidad" itemValue="Victimas con Discapacidad"/>
+                    
+                    <f:selectItem itemLabel="Lugares de Nacimiento" itemValue="Lugar de Nacimiento de las Victimas" />
+                    <f:selectItem itemLabel="Lugares de Agresion" itemValue="Lugares de Agresion" />
+                    <f:selectItem itemLabel="Relacion Victima - Agresor" itemValue="Relacion Victima - Agresor" />
+                    <f:selectItem itemLabel="Frecuencias de Agresion" itemValue="Frecuencia de las Agresiones" />
+                    
+                    <f:selectItem itemLabel="Tipo de Violencia Sufrida" itemValue="Tipo de Violencia Sufrida" />
+                    <f:selectItem itemLabel="Idioma que Hablan" itemValue="Idioma que Hablan" />
+                    
+                    <p:ajax listener="#{reportsController.onChangeTipoReporte}" update="formulario message" />
+                </p:selectOneMenu>
+            </p:panelGrid>
+</div>
+
+            <p:chart type="pie" model="#{reportsController.animatedModel}" responsive="true" rendered="#{reportsController.flag_chat}" style="height:450px;"/>
+            <br/>
+<div class="ui-fluid">
+    <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+        <p:dataTable  var="estado" value="#{reportsController.list_report}" style="width: 755px; font-size: 11px;" emptyMessage="No se encontrarón archivos." >
+                <f:facet name="header">
+                    #{reportsController.seleccion_reporte}
+                </f:facet>
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column headerText="DESCRIPCIÓN" width="220"/>
+                        <!--
+                        <p:column headerText="HOMBRES" width="45"/>
+                        <p:column headerText="MUJERES" width="45"/> -->
+                        <p:column headerText="TOTALES" width="45"/>
+                        <p:column headerText="PORCENTAJE" width="65"/>
+                    </p:row>
+                </p:columnGroup>
+
+                <p:column headerText="" width="420">
+                    <h:outputText value="#{estado.descripcion}" />
+                </p:column>
+            <ui:remove>
+                <p:column headerText="" width="45" style="background: #4BB2C5;">
+                    <h:outputText value="#{estado.hombre}" />
+                </p:column>
+
+                <p:column headerText="" width="45" style="background: #EAA228;">
+                    <h:outputText value="#{estado.mujer}" />
+                </p:column>
+            </ui:remove>  
+            
+                <p:column headerText="" width="45" >
+                    <h:outputText value="#{estado.tota}" />
+                </p:column>
+            
+            <p:column headerText="" width="65" style="align-items: flex-end" >
+                    <h:outputText  value="#{estado.percent !=null ? estado.percent:' 00.00' } %"> %</h:outputText>
+                </p:column>
+            
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column colspan="1" style="text-align:right" footerText="Totales:" />
+                        <ui:remove>                                                  
+                            <p:column footerText="#{reportsController.total_hombres}" />
+                            <p:column footerText="#{reportsController.total_mujer}" />
+                        </ui:remove>
+                        <p:column footerText="#{reportsController.total_neto}" />
+                    </p:row>
+                </p:columnGroup>
+
+            </p:dataTable>
+    </p:panelGrid>
+    </div>            
+
+        </h:form> 
+
+
+    </ui:define>
+
+</ui:composition>

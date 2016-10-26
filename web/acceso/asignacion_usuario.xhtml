@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Adiconar - </span>  <span class="subitem" style="color: black;">Usuario</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <center>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+
+                    <p:outputLabel value="Usuarios" for="tipo3"/>
+                    <p:selectOneMenu id="tipo3" value="#{aInstitucionController.selectedUsuInst.usuario_cod_usuario}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Aplicacion:">
+                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                        <f:selectItems value="#{aUsuariosController.itemUsuInst}"/>
+                        <p:ajax update="@this"></p:ajax>
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                    <p:row>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-disk" value="Agregar Usuario" action="#{aInstitucionController.buttonInsertUsuInst()}"
+                                             update="formulario message" style="width: 250px;" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+             
+            </center>
+
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

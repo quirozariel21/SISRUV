@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;"><h:outputLabel rendered="#{!aInstitucionController.flag_Preg}" value="Registro"/> <h:outputLabel rendered="#{aInstitucionController.flag_Preg}" value="Modificación"/> - </span>  <span class="subitem" style="color: black;">Lista de Indicadores</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+                <p:outputLabel value="Describa el Indicador:" for="teSt"/>
+                <p:panelGrid id="teSt" columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                    <p:inputTextarea rows="6" cols="200" value="#{aInstitucionController.pregunta.descripcion}" required="true" requiredMessage="Valor requerido, Testimonio de lo sucedido">
+                        <p:ajax update="@this"></p:ajax>
+                    </p:inputTextarea>
+                </p:panelGrid>
+                <br/>
+            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Institución" for="tipo1"/>
+               <p:selectOneMenu id="tipo1" value="#{aInstitucionController.pregunta.institucion_id_institucion}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Documento de Identidad">
+                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                    <f:selectItems value="#{aInstitucionController.itemInstitucion}"/>
+                </p:selectOneMenu>
+                
+            </p:panelGrid>
+                
+             <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                <p:row>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk" value="Guardar" action="#{aInstitucionController.insertPregunta()}" rendered="#{!aInstitucionController.flag_Preg}"
+                                update="formulario message" style="width: 250px;" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-disk" value="Modificar" action="#{aInstitucionController.modificarPregunta()}" rendered="#{aInstitucionController.flag_Preg}"
+                                update="formulario message" style="width: 250px;" />
+                    </p:column>
+                </p:row>
+            </p:panelGrid>    
+                
+                
+           
+            <br/>
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

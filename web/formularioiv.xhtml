@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Registro - </span>  <span class="subitem" style="color: black;">Formulario RUV</span>
+    </ui:define>
+
+    <ui:define name="implementation">
+        <p:growl id="message" sticky="false" life="3000" />
+        <p:dialog header="Informacion" modal="true" visible="#{denunciaController.flagDialogVictimaAgresor}"
+                  appendTo="@(body)" showEffect="clip" hideEffect="clip" 
+                  minimizable="true" maximizable="true"
+                  height="auto" width="auto" resizable="false" id="dialog_confima_add">
+            <p:ajax event="close" update="dialog_confima_add" listener="#{denunciaController.handleCloseDialog}" />
+            <h:form id="formFormularioIV">
+                
+                <h:panelGrid columns="2" id="pgConfirmas" cellpadding="5" cellspacing="5">
+                    <span class="ui-icon ui-icon-alert"></span>
+                    <p:outputLabel value="Esta Seguro de Guardar el Registro...?" ></p:outputLabel>
+                </h:panelGrid>
+                <p:separator style="width:auto; height:4px; background: #6E6E6E;" />
+                <center>
+                    <p:commandButton action="#{denunciaController.botonDialogVictimaAgresorAceptar}" update="dialog_confima_add" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton actionListener="#{denunciaController.botonDialogVictimaAgresorCancelar()}" update="dialog_confima_add" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </center>
+            </h:form>
+        </p:dialog>                
+
+        <h:form id="formulario">
+
+            <p:tabMenu activeIndex="1" style="font-size: 13px;">
+                <p:menuitem immediate="true" value="#{msg.recepcion_caso}" action="fii_fi" icon="ui-icon-person" update="formulario"/>                              
+                <p:menuitem value="#{msg.titulo_relacion}" icon="ui-icon-copy"/>
+                <p:menuitem value="#{msg.datos_agresor}" actionListener="#{denunciaController.actionMenuItemAgresor()}" 
+                            disabled="#{!denunciaController.flagItemPerfilAgresor}" icon="ui-icon-person" update="formulario"/>
+             <p:menuitem value="#{msg.titulo_estado_caso}" icon="ui-icon-document" update="formulario"/>
+            </p:tabMenu>
+            
+            <br></br> 
+            <!--INICIO PREGUNTAS DE VIOLENCIA FISICA -->
+            
+             <h5 style="font-weight:bold;">ESTADO DEL CASO DESPUÉS DE LA ATENCIÓN</h5>
+    <div class="ui-fluid">
+        <!--<p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >-->
+                
+                <p:selectOneRadio id="estadoDenuncia1"  
+                                  required="true" requiredMessage="Valor requerido" styleClass="selectRadio" >
+                    <f:selectItem itemLabel="Caso resuelto" itemValue="0" />
+                    <f:selectItem itemLabel="Caso abandonado" itemValue="1" />
+                    
+                </p:selectOneRadio>
+             <!-- </p:panelGrid> -->
+   
+    <p:outputLabel value="Referencia externa a:"/>
+      
+        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                
+                <p:selectOneRadio id="estadoDenuncia2" layout="responsive" columns="3" 
+                                  required="true" requiredMessage="Valor requerido" styleClass="selectRadio" >
+                   <f:selectItem itemLabel="Defensoria de la Niñez y Adolecencia" itemValue="2" />
+                   <f:selectItem itemLabel="Defensoria del Adulto Mayor" itemValue="3" />
+                   <f:selectItem itemLabel="Otro Servicio Legal Integral Municipal" itemValue="4" />
+                  
+               
+                   <f:selectItem itemLabel="Establecimiento de Salud" itemValue="5" />
+                   <f:selectItem itemLabel="Casa de Acogida y Refugio Temporal" itemValue="6" />
+                   <f:selectItem itemLabel="SIJPLU" itemValue="7" />
+                   
+                   <f:selectItem itemLabel="Fiscalía (Ministerio Público)" itemValue="8" />
+                   <f:selectItem itemLabel="Fuerza Especial de Lucha Contra la Violencia" itemValue="9" />
+                   <f:selectItem itemLabel="Instituto de Investigaciones Forenses" itemValue="10" />
+                   
+                   <f:selectItem itemLabel="SEPDAVI" itemValue="11" />
+                   <f:selectItem itemLabel="ONG" itemValue="12" />
+                   <f:selectItem itemLabel="Otra Instancia" itemValue="13" />
+                    
+                </p:selectOneRadio>
+             </p:panelGrid>
+    </div>
+      
+                <div class="ui-fluid">
+            <p:panelGrid columns="1" style="width: 100%; text-align:right">
+                <p:row>
+                    <p:column>
+                        <p:commandButton value="Anterior" action="fii_fi" immediate="true"
+                                         icon="ui-icon-seek-prev" style="width: 150px;"/>
+                        <p:commandButton value="Modificar" action="#{denunciaController.update_vic()}" icon="ui-icon-disk" update=":dialog_confima_add message" rendered="#{denunciaController.flagOpcion}"></p:commandButton>
+                        <p:commandButton value="Guardar" actionListener="#{denunciaController.add_victima_relacion()}" 
+                                         icon="ui-icon-disk" style="width: 150px;" update="formulario :dialog_confima_add message" rendered="#{!denunciaController.flagOpcion}"/>
+                        <p:commandButton value="Siguiente" action="#{denunciaController.boton_dialog_form3}" style="width: 150px;" update="formulario message" icon="ui-icon-seek-next">
+                            <p:confirm  header="Confirmación" message="Esta seguro de seguir?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+</div>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="inf_1">
+                <center>
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </center>
+            </p:confirmDialog>   
+       
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

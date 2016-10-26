@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Indicadores - </span>  <span class="subitem" style="color: black;"></span>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:dialog header="Informacion" modal="true" visible="#{iDenunciaController.flagDialogVictimaAgresor}"
+                  appendTo="@(body)" showEffect="clip" hideEffect="clip" style="font-size: 11.5px; font-family: sans-serif;"
+                  minimizable="true" maximizable="true"
+                  height="auto" width="auto" resizable="false" id="dialog_confima_add">
+            <p:ajax event="close" update="message" listener="#{iDenunciaController.handleCloseDialog}" />
+            <h:form id="formularioI">
+                <h:panelGrid columns="2" id="pgConfirma" cellpadding="5" cellspacing="5">
+                    <span class="ui-icon ui-icon-alert"></span>
+                    <p:outputLabel value="Esta Seguro de crear el registro...?" style="font-size: 11.5px; font-family: sans-serif;"></p:outputLabel>
+                </h:panelGrid>
+                <p:separator style="width:auto; height:4px; background: #6E6E6E;" />
+                <center>
+                    <p:commandButton action="#{iDenunciaController.insert()}" update=":formulario message :dialog_confima_add formulario" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size: 11.5px; font-family: sans-serif;"/>
+                    <p:commandButton actionListener="#{iDenunciaController.botonDialogVictimaAgresorCancelar()}" update="dialog_confima_add" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  style="font-size: 11.5px; font-family: sans-serif;"/>
+
+                </center>
+            </h:form>
+        </p:dialog>  
+
+        <p:growl id="message" sticky="false" life="3000" />  
+        <h:form id="formulario">
+
+            <br></br>
+            <div class="ui-fluid">
+                <h:panelGrid columns="4" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;">
+                    <p:outputLabel ></p:outputLabel>
+                    <p:outputLabel ></p:outputLabel>
+                    <p:outputLabel ></p:outputLabel>
+                    <p:outputLabel value="#{iDenunciaController.inst}"></p:outputLabel>
+                </h:panelGrid>
+            </div>
+            <div class="ui-fluid">
+                <p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;" > 
+
+                    <p:outputLabel  value="Fecha Registro:"/>
+                    <p:calendar placeholder="dd/MM/yyyy" id="fRegistro" value="#{iDenunciaController.fecha}" 
+                                pattern="dd/MM/yyyy" mask="true" required="true" requiredMessage="Valor requerido, Fecha Registro">
+                        <p:ajax event="dateSelect" process="@this" />
+                    </p:calendar>                                     
+                    <p:outputLabel style="font-size: 10.5px; color: #666666; font-weight:normal;" value="dia/mes/año"/>
+
+                    <br></br>
+                </p:panelGrid>
+            </div>
+            <div class="ui-fluid">
+                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" style="font-size: 11px;" > 
+
+                    <p:dataTable id="tableBase" var="preguntas" value="#{iDenunciaController.listapreguntas}">
+
+                        <p:column headerText="Indicadores">
+                            <h:outputText value="#{preguntas.descripcion}" />
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <p:inputText value="#{preguntas.dato}" style="width: 90%" onkeyup="this.value = this.value.toUpperCase()"/>
+                        </p:column>
+
+                    </p:dataTable> 
+
+                </p:panelGrid>
+            </div>
+            <div class="ui-fluid">
+                <p:panelGrid columns="1" style="width: 100%; text-align:center">
+                    <p:row>
+                        <p:column>
+                            <p:commandButton value="Guardar" actionListener="#{iDenunciaController.add_victima_relacion()}" 
+                                             icon="ui-icon-disk" style="width: 150px;" update=":dialog_confima_add message"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
+
+
+

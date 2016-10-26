@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Listado - </span>  <span class="subitem" style="color: black;">Indicadores</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+            <center><br/>
+                 <p:dataTable id="tableBase" var="preg" value="#{aInstitucionController.listPreguntas}" selectionMode="single" reflow="true" rows="10" paginator="true" 
+                              emptyMessage="No se encontrarón archivos." selection="#{aInstitucionController.selectedPregunta}" rowKey="#{preg.id_pregunta}">
+                    <p:ajax event="rowSelect" listener="#{aInstitucionController.onRowSelectP}" />
+                
+                    <p:column headerText="Nro" style="width:4%">
+                        <h:outputText value="#{preg.numRegistro}" />
+                    </p:column>
+                    <p:column headerText="Institucion" filterBy="#{preg.descripcionInst}">
+                        <h:outputText value="#{preg.descripcionInst}" />
+                    </p:column>
+                    <p:column headerText="Indicador" filterBy="#{preg.descripcion}">
+                       <h:outputText value="#{preg.descripcion}" />
+                    </p:column>
+                    
+
+                </p:dataTable>  
+                <br/>
+                <p:commandButton value="Crear Indicador" icon="ui-icon-newwin"
+                                 action="#{aInstitucionController.buttonNuevaPreg()}"/>
+            </center>
+
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

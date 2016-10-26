@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Estado del Caso despues de la Atención</title>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+    </h:head>
+    <h:body>
+       
+        <h:form id="formularioEstado">
+            <div class="ui-fluid" align="center">
+                <p:panelGrid  >
+                  
+                    <p:row style="background: #90bade; text-align: center; color: white" >
+                            <p:column colspan="14">Informacion de la Victima</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="4">
+                            <p:outputLabel value="Nombre:"/>
+                        </p:column>
+                        <p:column colspan="10">
+                            <p:outputLabel value="#{denunciaController.base_model.personaVictima.nombre} " />
+                            <p:outputLabel value="#{denunciaController.base_model.personaVictima.paterno} " />
+                            <p:outputLabel value="#{denunciaController.base_model.personaVictima.materno} " />
+                        </p:column>                       
+                    </p:row> 
+                    <p:row>
+                         <p:column colspan="4">
+                            <p:outputLabel value="C.I.:"/>
+                        </p:column>    
+                        <p:column colspan="10" >
+                            <p:outputLabel value="#{denunciaController.base_model.personaVictima.numero}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row style="background: #90bade; text-align: center; color: white">
+                        <p:column colspan="14">Estado del Caso de la Victima</p:column>
+                    </p:row>
+                    <p:row >
+                        <p:column colspan="14">
+                            <p:selectOneRadio layout="grid" columns="1" value="#{denunciaController.base_model.vicAgre_persona.contra_ref_caso_de}">
+                                <!--
+                                <f:selectItem itemLabel="Caso Abandonado" itemValue="0" /> 
+                                <f:selectItem itemLabel="Caso Resuelto por el SLIM" itemValue="1" />
+                                 
+                                Referencia a:
+                                <f:selectItem itemLabel="Defensoria de la Niñez y Adolecencia" itemValue="2" />
+                                <f:selectItem itemLabel="Defensoria del Adulto Mayor" itemValue="3" />
+                                <f:selectItem itemLabel="Otro Servicio Legal Integral Municipal" itemValue="4" />
+                                
+                                <f:selectItem itemLabel="Establecimiento de Salud" itemValue="5" />      
+                                <f:selectItem itemLabel="Casa de Acogida y Refugio Temporal" itemValue="6" />
+                                <f:selectItem itemLabel="SIJPLU" itemValue="7" />
+                                
+                                <f:selectItem itemLabel="Fiscalía (Ministerio Público)" itemValue="8" />      
+                                <f:selectItem itemLabel="Fuerza Especial de Lucha Contra la Violencia" itemValue="9" />
+                                <f:selectItem itemLabel="Instituto de Investigaciones Forenses" itemValue="10" />
+                                
+                                <f:selectItem itemLabel="SEPDAVI" itemValue="11" />      
+                                <f:selectItem itemLabel="ONG" itemValue="12" />
+                                <f:selectItem itemLabel="Otra Instancia" itemValue="Otro" />
+                               -->
+                               <f:selectItems value="#{t_datosController.itemDespuesCaso}"/>                              
+                                <p:ajax update="formularioEstado" event="change" listener="#{denunciaController.handleDespuesCaso()}"/>-->
+                               
+                            </p:selectOneRadio>
+                           
+                        </p:column>  
+                    </p:row>  
+                    <p:row style="background: #F7F7F7;">
+                    <p:column colspan="4" style="border:none !important;">
+                            <p:outputLabel value="Especifique:" rendered="#{denunciaController.flag_despues_caso}" for="inst"/>                            
+                        </p:column>
+                        <p:column colspan="10" style="border:none !important;">
+                            <p:inputText id="inst" style="width: 100%" value="#{denunciaController.base_model.vicAgre_persona.contra_ref_esp_caso}"
+                                         rendered="#{denunciaController.flag_despues_caso}" required="#{denunciaController.flag_despues_caso}" requiredMessage="Valor requerido, Especifique Instancia"> 
+                                 <p:ajax update="@this"></p:ajax>
+                            </p:inputText>
+                        </p:column>
+                    </p:row> 
+                   
+                </p:panelGrid> 
+                <br/>               
+
+                <p:panelGrid  style="width: 100%;">
+                    <p:row style="background: #F7F7F7; border: none !important; ">                    
+                        <p:column style="border: none !important;">
+                            <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{denunciaController.cancelar_estado_caso()}"/>
+                        </p:column>
+                        <p:column style="border: none !important;">
+                            <p:commandButton icon="ui-icon-disk" value="Guardar" action="#{denunciaController.update_estado_caso()}" />
+                           
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+            </div>                 
+                   
+        </h:form>
+    </h:body>
+</html>
+

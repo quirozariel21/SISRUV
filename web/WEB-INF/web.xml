@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/menu.xhtml</welcome-file> <!-- Aca cambiamos para que se vaya al menu -->
+    </welcome-file-list>
+    
+    <context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>afternoon</param-value>  
+    </context-param>
+
+    <!--parametros de la coneccion con la base de datos-->
+    <context-param>
+        <param-name>gestorBD</param-name>
+        <param-value>postgresql</param-value>
+    </context-param>
+    <context-param>
+        <param-name>servidor</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>baseDato</param-name>
+        <param-value>sisruv</param-value>
+    </context-param>
+    <context-param>
+        <param-name>usuario</param-name>
+        <param-value>postgres</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>123456</param-value>
+    </context-param>
+    <!--parametros de la coneccion con la base de datos-->
+    <!--parametros de la coneccion con la base de datos Usuarios-->
+    <context-param>
+        <param-name>gestorBDU</param-name>
+        <param-value>postgresql</param-value>
+    </context-param>
+    <context-param>
+        <param-name>servidorU</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>baseDatoU</param-name>
+        <param-value>acceso</param-value>
+    </context-param>
+    <context-param>
+        <param-name>usuarioU</param-name>
+        <param-value>postgres</param-value>
+    </context-param>
+    <context-param>
+        <param-name>passwordU</param-name>
+        <param-value>123456</param-value>
+    </context-param>
+    <!--parametros de la coneccion con la base de datos Usuarios-->
+    <!--parametros de la coneccion con la base de datos LogEvent-->
+    <context-param>
+        <param-name>gestorBDL</param-name>
+        <param-value>postgresql</param-value>
+    </context-param>
+    <context-param>
+        <param-name>servidorL</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>baseDatoL</param-name>
+        <param-value>log</param-value>
+    </context-param>
+    <context-param>
+        <param-name>usuarioL</param-name>
+        <param-value>postgres</param-value>
+    </context-param>
+    <context-param>
+        <param-name>passwordL</param-name>
+        <param-value>123456</param-value>
+    </context-param>
+    <!--parametros de la coneccion con la base de datos LogEvent-->
+    
+    <!-- Início das configurações para o Spring Security 3 -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+    <!-- Fim das configuração para utilizar o Spring Security 3 -->
+    <!-- capcha -->
+     <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6Lf2XQkTAAAAAHsc1-7Mt_kMlmcmGqlxoMDJlp2K</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6Lf2XQkTAAAAANcvOwYqPxWL4iZDksFqHpS39GDA</param-value>
+    </context-param>
+    <servlet>
+            <servlet-name>Captcha</servlet-name>
+            <servlet-class>captcha.Captcha</servlet-class>
+            <init-param>
+                  <description>passing height</description>
+                  <param-name>height</param-name>
+                  <param-value>45</param-value>
+            </init-param>
+            <init-param>
+                  <description>passing height</description>
+                  <param-name>width</param-name>
+                  <param-value>135</param-value>
+            </init-param>
+      </servlet>
+      <servlet-mapping>
+            <servlet-name>Captcha</servlet-name>
+            <url-pattern>/Captcha.jpg</url-pattern>
+      </servlet-mapping>
+    <!-- capcha -->
+    
+    <!--parametros menu index-->
+    <context-param>
+        <param-name>menuIndex</param-name>
+        <param-value>http://localhost:8080/index/</param-value>
+    </context-param>
+    
+    <!-- INICIO Links Externos Editado por Boris-->
+    <context-param>
+        <param-name>rejap</param-name>
+        <param-value>http://magistratura.organojudicial.gob.bo:8888/rejapwebmj/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>costeo</param-name>
+        <param-value>http://localhost:8080/sea/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>viomap</param-name>
+        <param-value>http://viomap.alianzalibressinviolencia.org/</param-value>
+    </context-param>
+    <!-- FIN Links Externos Editado por Boris-->
+    <!-- INICIO eVITAR acceso a paginas .xhtml Editado por Boris
+    <security-constraint>
+        <display-name>Restrict raw XHTML Documents</display-name>
+        <web-resource-collection>
+            <web-resource-name>XHTML</web-resource-name>
+            <url-pattern>*.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
+   FIN eVITAR acceso a paginas .xhtml Editado por Boris-->
+</web-app>

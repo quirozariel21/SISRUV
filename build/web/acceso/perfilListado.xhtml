@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Listado - </span>  <span class="subitem" style="color: black;">Perfiles</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            
+            
+            <center>
+            <p:dataTable id="tableBase" var="perf" value="#{aPerfilController.listPerfil}" selectionMode="single" reflow="true" rows="10" paginator="true" 
+                         style="width: 40%;" emptyMessage="No se encontrarón archivos." selection="#{aPerfilController.selectedPerfil}" rowKey="#{perf.cod_perfil}">
+                
+                <p:ajax event="rowSelect" listener="#{aPerfilController.onRowSelect}" />
+                <p:column headerText="Nro.">
+                    <h:outputText value="#{perf.numeroRegistro}" />
+                </p:column>
+
+                <p:column headerText="NOMBRE">
+                    <h:outputText value="#{perf.nombre}" />
+                </p:column>               
+
+            </p:dataTable>  
+                <br/>
+                
+            <p:commandButton value="Crear Perfil" icon="ui-icon-newwin"
+                             action="#{aPerfilController.buttonNuevoPerfil}"/>
+</center>
+            
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

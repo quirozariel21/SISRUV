@@ -1,0 +1,371 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+    
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/main/favicon.png" />
+        </f:facet>
+
+        <title>Registro Unico de Violencia</title>
+        <h:outputStylesheet name="main/css/showcase.css" />
+        <h:outputStylesheet name="main/css/perfect-scrollbar.css" />
+        <h:outputStylesheet name="main/css/sh.css" />
+        <h:outputStylesheet name="main/css/nav.css" />
+        <h:outputScript name="jquery/jquery.js" library="primefaces" />
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+        <h:outputScript name="main/js/perfect-scrollbar.js" />
+        <h:outputScript name="main/js/showcase.js" />
+        <ui:insert name="head" />
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12200033-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+
+            function(e) {
+                var url = $(this).val();
+                if (url.length > 0) {
+                    window.location = url;
+                }
+            }
+        </script>
+        <script type="text/javascript">
+        function ext() {
+            this.cfg.seriesDefaults.rendererOptions.dataLabelFormatString = '%.4s%%';
+            //this.cfg.seriesDefaults.rendererOptions.dataLabelThreshold = 0;
+        }        
+        </script>
+        
+        <script type="text/javascript">
+            $(document).ready(function () { // Script del Navegador 
+                $("ul.subnavegador").not('.selected').hide();
+                $("a.desplegable").click(function (e) {
+                    var desplegable = $(this).parent().find("ul.subnavegador");
+                    $('.desplegable').parent().find("ul.subnavegador").not(desplegable).slideUp('slow');
+                    desplegable.slideToggle('slow');
+                    e.preventDefault();
+                })
+            });
+        </script>
+            
+        <style>
+             .content {
+                width: 80%;
+                margin: 0px auto;
+            }
+
+            .embed-container {
+                height: 0;
+                width: 100%;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .embed-container iframe {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            /*estilos para el menu*/
+            .my_ul {
+                list-style: none;
+                margin: 0;
+            }
+
+            .my_ul:first-child {
+                padding: 0;
+            }
+
+            .my_li {
+                line-height: 180%;
+                border-bottom: 1px dashed #CCC;
+                text-indent: -14px;
+            }
+
+            .my_li:last-child {
+                border: none;
+            }
+
+            .my_li:before {
+                content: "";
+                border-left: 4px solid #CCC;
+                padding-left: 10px;
+            }
+            .my_a {
+                text-decoration: none;
+                color: #890916;
+                font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+                font-size: 14px;
+            }
+
+            .my_a:hover {
+                background-color: #890916;
+                color: white;
+            }
+
+            .ui-inputfield.ui-state-error, .ui-widget-header .ui-inputfield.ui-state-error, .ui-widget-content .ui-inputfield.ui-state-error {
+
+                border: 1px solid #EDB8C0;
+            }
+            /*estilos para el menu*/
+            /*estilo de validacion*/
+
+            .ui-inputfield.ui-state-error, .ui-widget-header .ui-inputfield.ui-state-error, .ui-widget-content .ui-inputfield.ui-state-error {
+
+                border: 1px solid #EDB8C0;
+            }
+
+            /*menuprimefaces*/
+            .ui-state-active .ui-icon {
+               background-image: url("/SISRUV/faces/javax.faces.resource/images/ui-icons_f35f07_256x240.png?ln=primefaces-humanity");
+            }
+            .ui-state-default .ui-icon {
+               background-image: url("/SISRUV/faces/javax.faces.resource/images/ui-icons_f35f07_256x240.png?ln=primefaces-humanity");
+            }
+
+            .ui-panelmenu .ui-panelmenu-header a {
+                display: block;
+                padding: .5em .5em .5em 2.2em;
+                color: #DFE4E6;
+                font-size: 17px;
+                font-family: "exoregular","Trebuchet MS",Arial,Helvetica,sans-serif;
+                font-weight: normal;
+                background: #404c51;                
+                text-shadow: 0 0 0px;
+            }
+
+            .ui-panelmenu .ui-panelmenu-header {
+                cursor: pointer;
+                position: relative;
+                margin: 0;
+                zoom: 1;
+                border: none;
+                border-top: solid 1px #617178;
+            }
+
+            .ui-panelmenu .ui-panelmenu-content {
+                background: rgb(42, 51, 54);
+                border: none;
+            }
+
+            .ui-panelmenu .ui-menuitem-link {
+                color: #dca74b;
+            }
+
+            .ui-panelmenu .ui-icon {
+                background-image: url("/SISRUV/faces/javax.faces.resource/images/ui-icons_d19405_256x240.png?ln=primefaces-sunny");
+            }
+
+        </style>
+    </h:head>
+
+    <h:body>
+        <h:panelGroup rendered="#{loginController.session}">
+            <p:dialog header="Informacion" modal="true" visible="#{usuarioController.flagconfimacion}" id="dialogConfirm" appendTo="@(body)" showEffect="clip" 
+                      hideEffect="clip" minimizable="true" maximizable="true" height="auto" width="auto" resizable="false" >
+                <p:ajax event="close" update="dialogConfirm" listener="#{usuarioController.handleCloseDialog}" />
+                <h:form id="formularioInforma">
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                        <span class="ui-icon ui-icon-alert"></span>
+                        <p:outputLabel value="Esta seguro de Cerrar Session" ></p:outputLabel>
+                    </h:panelGrid>
+                    <p:separator style="width:auto; height:4px; background: #6E6E6E;" />
+                    <center>
+                        <h:outputLink class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" 
+                                      value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                            <h:outputText value="Aceptar"/>
+                        </h:outputLink>
+                        <p:commandLink class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" actionListener="#{usuarioController.actionDialogCancelar}" update="dialogConfirm" value="Cancelar" />
+                    </center>
+                </h:form>
+            </p:dialog> 
+            <!-- PC CONTENT STARTS HERE-->
+            <div class="PC">
+
+                <div id="MENUSIDE">
+                    <div id="MENUSIDEindent">
+                        <span id="LOGO" class="bordersOfMenuSide">
+                            <h:graphicImage name="main/images/logotipo.png" />
+                            <h:graphicImage id="BlueLogo" styleClass="hiddenLogo" name="main/images/logotipoColor.png" />
+                        </span>
+<!--                        <div class="MenuSideMainLink bordersOfMenuSide"><h:graphicImage name="main/images/zoom.svg" class="zoomIcon"/><input id="menuSearch" type="text" placeholder="Search Menu" class="mediumFont fontSize14 mustClose searchInput"/></div>-->
+<div ><center style="background-color:#20282b; height: 38px; padding-top: 24px;"><span style="color: #DFE4E6; ">Menú de Opciones</span></center></div>
+
+    <!-- MENU LATERAL SIDE MENU -->
+                        <h:form>
+                            <p:panelMenu style="width:300px" model="#{linkController.menuModel}"/>
+                        </h:form>
+                    </div>
+     <!-- MENU LATERAL SIDE MENU -->
+                </div>
+
+                <script type="text/javascript">
+                    restoreMenuState();
+                </script>
+
+                <div id="CONTENTSIDE">
+                    <div id="CONTENTSIDEindent">
+
+                        <!-- header bar start-->
+                        <div class="ContentSideSections" id="PFTopLinksCover" style="height:60px;">
+                            <a id="LOGOTEXTSIDE" href="#{request.contextPath}/index.xhtml">
+                                <span class="dispBlock logoDarkText fontSize30" style="baac">REGISTRO UNICO</span>
+                                <span class="dispBlock logoBlueText fontSize30 mediumFont">DE VIOLENCIA</span>
+                            </a>
+                            <h:form id="form_cierra_session">
+                                <p:commandLink action="#{usuarioController.actionCerrarSession}" class="PFTopLinks floatRight boldFont marginRight20" update="dialogConfirm">
+                                    <h:graphicImage name="main/images/log_out.png" />
+                                    <span class="PFGrayText">Cerrar</span><span class="PFDarkText">Sesión</span>
+                                </p:commandLink>
+                                <p:commandLink action="#{linkController.menuPrincipal()}" class="PFTopLinks floatRight boldFont marginRight20" > <!-- ICONO MENU PRINCIPAL -->
+                                <h:graphicImage name="main/images/inicio.png"/>
+                                    <span class="PFGrayText">Menu</span><span class="PFDarkText"></span>
+                                </p:commandLink>
+                            </h:form>
+
+
+                            <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav">
+
+                                <a ><span class="ui-text"><h:outputLabel value="#{usuarioController.fecha_actual}">
+                                            <f:convertDateTime pattern="dd-MMM-yyyy"></f:convertDateTime>
+                                        </h:outputLabel> </span></a>
+
+                            </span>
+
+                            <div class="mobileLogoCover">
+                                <h:graphicImage name="main/images/logotipoColor.png" style="height:40px;" styleClass="floatLeft marginRight10"/>
+                                <span class="dispBlock logoDarkText fontSize16 floatLeft">REGISTRO UNICO <span class="dispBlock logoBlueText fontSize18 mediumFont">DE VIOLENCIA</span></span> 
+                            </div>
+
+                            <ul  style="border: 1px solid #90bade; width: 50%; background: rgb(223, 228, 230) none repeat scroll 0% 0%;" class="selectmenu my_ul">
+                                <h:form id="form_submenu">
+                                    <li class="my_li"  type="none" ><a href="#" class="desplegable my_a" title="Seleccione aqui">Seleccione</a>                    
+                                        <ul class="subnavegador my_ul">
+                                            <li class="my_li">
+                                                <p:outputLabel value="#{usuarioController.fecha_actual}" style="font-size: 14px; color: #890916;">
+                                                    <f:convertDateTime pattern="dd-MMM-yyyy"></f:convertDateTime>
+                                                </p:outputLabel>
+                                            </li>
+                                            <li class="my_li"><p:commandLink value="Inicio" style="font-size: 14px; color: #890916;" class="my_a">
+                                                    <f:param name="href" value="www"></f:param>                                            
+                                                </p:commandLink>
+                                            </li>
+
+                                            <li  type="none" class="my_li"><a href="#" class="desplegable my_a" title="Venta">Menu</a>
+                                                <ul class="subnavegador my_ul">
+                                                    <ui:repeat var="submenu" value="#{usuarioController.menuViewResponsive}">
+                                                        <li class="my_li"><p:commandLink class="my_a" value="#{submenu.menu_descripcion}" actionListener="#{usuarioController.actionLink}">
+                                                                <f:param name="href" value="#{submenu.menu_href}"></f:param>                                            
+                                                            </p:commandLink></li>
+                                                    </ui:repeat>
+                                                </ul>
+                                            </li>
+
+                                            <li class="my_li">
+                                                <p:commandLink class="my_a" value="Cerrar Session" action="#{usuarioController.actionCerrarSession}" update="dialogConfirm"/>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </h:form>
+                            </ul>
+
+                        </div>
+
+                        <div class="ContentSideSections" id="PFTopLinksCover" style="height:5px;">            
+                            <a>
+                                <h:graphicImage style="width: 15px; height: 15px;" name="main/images/user.svg" />
+                                <span class="ui-text" style="color: #428bca; text-transform: uppercase">#{usuarioController.usuario.nombre_completo}</span></a>
+                        </div>
+                        <!-- header bar end-->
+
+                        <ui:insert name="content">
+
+                            <ui:insert name="subsubmenu"></ui:insert>
+
+                            <div class="ContentSideSections">
+                                <div class="Content100 overHidden TextShadow">
+                                    <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock"><ui:insert name="title" /></span>
+
+                                </div>
+                            </div>
+
+                            <div class="ContentSideSections Implementation">
+                                <ui:insert name="implementation" />
+                            </div>
+
+                        </ui:insert>
+
+                        <!-- footer start-->
+                        <div class="ContentSideSections">
+                            <span style="color: black" class="floatLeft fontSize14 gray"><a style="color: #890916;" href="http://www.justicia.gob.bo">Ministerio de Justicia</a>, Copyright &copy; 2015<br /></span>
+
+                            <div style="clear:both" />
+                        </div>
+                        <!-- footer end-->
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- PC CONTENT END-->
+
+            <ui:insert name="status">
+                <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+                    <f:facet name="start">
+                        <p:graphicImage name="main/images/loader.gif" />
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </ui:insert>
+
+            <ui:insert name="highlight">
+                <h:outputScript name="main/js/sh.js" target="body"/>
+                <h:outputScript name="main/js/idioma.js" target="body"/>
+            </ui:insert>
+
+            <ui:insert name="body"></ui:insert>
+        </h:panelGroup>
+
+        <h:form>
+            <p:panel rendered="#{!loginController.session}" style="width: 100%; height: 100%;">
+                <center>
+                    <br/>
+                    <br/>
+                    <p:outputLabel value="Lo sentimos su sesión ha excedido el tiempo límite. Por favor, ingrese de nuevo." style="color: red;"/>
+                    <br/><br/>
+
+                    <p:commandButton value="Inicio" actionListener="#{loginController.buttonIndex}" id="iconOnly" icon="ui-icon-home" title="Iniciar Sesion" />
+
+                    <br/>
+                    <br/>
+                </center>            
+            </p:panel>
+
+        </h:form> 
+    </h:body>
+</html>

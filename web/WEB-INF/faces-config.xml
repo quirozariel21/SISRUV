@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <resource-bundle>
+            <base-name>properties.properties</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        
+        <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+    </application>
+    
+    
+    
+    <lifecycle>
+        <phase-listener id="nocache">controller.LoginController</phase-listener>
+    </lifecycle>
+    <!--INICIO EDICION BORIS PARA MENU
+    <navigation-rule>
+        <from-view-id>/menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/detalle.xhtml</to-view-id>          
+            <redirect/>
+        </navigation-case>
+        <navigation-case>    
+            <to-view-id>/denuncia/denuncia.xhtml</to-view-id>         
+            <redirect/>
+        </navigation-case>        
+    </navigation-rule>
+     FIN -->
+<!--INICIO SisRUV-->     
+    <navigation-rule>
+        <from-view-id>/formularioi.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>fi_fii</from-outcome>
+            <to-view-id>/formularioii.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fi_fiv</from-outcome>
+            <to-view-id>/formularioiv.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>    
+    <navigation-rule>
+        <from-view-id>/formularioii.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>fii_fi</from-outcome>
+            <to-view-id>/formularioi.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fii_fiii</from-outcome>
+            <to-view-id>/formularioiii.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fii_imp</from-outcome>
+            <to-view-id>/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>det_ii</from-outcome>
+            <to-view-id>/detalle.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/formularioiii.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>fiii_fi</from-outcome>
+            <to-view-id>/formularioi.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiii_fii</from-outcome>
+            <to-view-id>/formularioii.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fiii_imp</from-outcome>
+            <to-view-id>/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>det_iii</from-outcome>
+            <to-view-id>/detalle.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/imprime.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>imp_det</from-outcome>
+            <to-view-id>/detalle.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/detalle.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>agreg</from-outcome>
+            <to-view-id>/formularioi.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>impPDF</from-outcome>
+            <to-view-id>/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>viewEstadoCaso</from-outcome>            
+            <to-view-id>/viewEstadoCaso.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/codigo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>agregcod</from-outcome>
+            <to-view-id>/formularioi.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>impPDF</from-outcome>
+            <to-view-id>/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/formularioe.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>forme_formee</from-outcome>
+            <to-view-id>/formularioee.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/formularioee.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>formee_formeee</from-outcome>
+            <to-view-id>/formularioeee.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>formee_forme</from-outcome>
+            <to-view-id>/formularioe.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/formularioeee.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>formeee_formee</from-outcome>
+            <to-view-id>/formularioee.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>formeee_forme</from-outcome>
+            <to-view-id>/formularioe.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <!--de dialogo de estado a lista busqueda edit Boris-->
+    <navigation-rule>
+        <from-view-id>/viewEstadoCaso.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detalle</from-outcome>
+            <to-view-id>/detalle.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>       
+    </navigation-rule> 
+    
+<!--FIN SRUV-->         
+
+<!--inicio Edit Boris LA VISTA DE DENUNCIAS 
+    
+    <navigation-rule>
+        <from-view-id>/denuncia/denuncia.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>fiii_imp</from-outcome>
+            <to-view-id>/denuncia/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/denuncia/imprime.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>imp_de</from-outcome>
+            <to-view-id>/denuncia/denuncia.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/denuncia/detalles.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>imprime_det</from-outcome>
+            <to-view-id>/denuncia/imprime.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+     fin Edit Boris LA VISTA DE DENUNCIAS -->
+     
+     
+<!-- INICIO ACCESO -->
+     <navigation-rule>
+        <from-view-id>/acceso/usuariosListado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nuevo_usuario</from-outcome>
+            <to-view-id>/acceso/usuarios.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/acceso/perfilListado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nuevo_perfil</from-outcome>
+            <to-view-id>/acceso/perfilAdiciona.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>        
+    </navigation-rule>    
+    
+    <navigation-rule>
+        <from-view-id>/acceso/usuarios.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ok_usuario</from-outcome>
+            <to-view-id>/acceso/usuariosListado.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>  
+    
+    <navigation-rule>
+        <from-view-id>/acceso/perfilAdiciona.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancela_nuevo_perfil</from-outcome>
+            <to-view-id>/acceso/perfilListado.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/acceso/institucion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nueva_inst</from-outcome>
+            <to-view-id>/acceso/institucionListado.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/acceso/pregunta.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nueva_preg</from-outcome>
+            <to-view-id>/acceso/preguntaListado.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/acceso/institucionListado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>instRe</from-outcome>
+            <to-view-id>/acceso/institucion.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/acceso/preguntaListado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pregRe</from-outcome>
+            <to-view-id>/acceso/pregunta.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/acceso/asignacion_usuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>asigusuRe</from-outcome>
+            <to-view-id>/acceso/institucionListado.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>    
+    
+    <navigation-rule>
+        <from-view-id>/acceso/t_datos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>t_datos_t_datos_abm</from-outcome>
+            <to-view-id>/acceso/t_datos_abm.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>t_datos_app</from-outcome>
+            <to-view-id>/acceso/app.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>        
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/acceso/t_datos_abm.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>t_datos_abm_t_datos</from-outcome>
+            <to-view-id>/acceso/t_datos.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+    </navigation-rule>
+<!-- FIN ACCESO -->
+</faces-config>

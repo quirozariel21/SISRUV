@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Listado - </span>  <span class="subitem" style="color: black;">App</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            <center>
+               listado de t datos!!!
+            </center>
+            
+            <p:dataTable id="xAplicaion" var="atd" value="#{aUsuariosController.lista_app_x_aplicacion}" reflow="true" rows="10" paginator="true" 
+                             emptyMessage="No se encontrarón archivos." >
+                
+                
+
+                <p:column headerText="id">
+                    <h:outputText value="#{atd.id_tdatos}" />
+                </p:column>               
+                <p:column headerText="servidor">
+                    <h:outputText value="#{atd.descripcion}" />
+                </p:column> 
+                
+
+            </p:dataTable>  
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

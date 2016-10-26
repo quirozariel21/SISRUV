@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Parametros de Aplicaciones - </span>  <span class="subitem" style="color: black;"> Listado Altas - Bajas - Modificaciones</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+                    
+                    <p:outputLabel value="Seleccione una Aplicación:"/>
+            <p:selectOneMenu id="advanced" value="#{aAplicacionController.selectCodAplicaciones.id_app}" panelStyle="width:180px"
+                         effect="fade" style="width:160px">
+                <f:selectItem itemLabel="" itemValue="" />
+                <f:selectItems value="#{aAplicacionController.selectItemsAplicaciones}" />
+                <p:ajax listener="#{aAplicacionController.onChangeSelectAplicacion}" update="formulario message" />
+        </p:selectOneMenu>
+        </p:panelGrid>   
+                </div>
+
+            <p:dataTable id="table" var="res" value="#{aAplicacionController.listaDescripcionDatos}" selectionMode="single" selection="#{aAplicacionController.selectedDescripcionDatos}" 
+                         rowKey="#{res.id_t}" rendered="#{aAplicacionController.renderDescripcionDatos}" style="width: 450px;">
+
+                <f:facet name="header">
+                    LISTA DE TABLAS (#{aAplicacionController.selectCodAplicaciones.descripcion}) 
+                </f:facet>
+                <p:ajax event="rowSelect" listener="#{aAplicacionController.onRowSelectDescripcionDatos}" />
+                <p:column headerText="CODIGO" width="50">
+                    <h:outputText value="#{res.id_t}" />
+                </p:column>
+                
+                <p:column headerText="NOMBRE TABLA" width="380">
+                    <h:outputText value="#{res.descripcion}" />
+                </p:column>
+
+                
+
+            </p:dataTable>  
+
+            
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>

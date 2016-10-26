@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Tabla - </span>  <span class="subitem" style="color: black;">#{aplicacionController.selectedDescripcionDatos.descripcion} - #{aplicacionController.opcionT_datos}</span>
+    </ui:define>
+
+
+
+    <ui:define name="implementation">        
+        <p:growl id="message" sticky="false" life="3000" />
+
+        <h:form id="formulario">
+
+            
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+                    
+                    <p:outputLabel value="Tabla:"/>
+                    <p:outputLabel value="#{aplicacionController.selectedDescripcionDatos.descripcion}" style="font-weight: bold;"/>
+                    
+                    <p:outputLabel value="Referencia Tabla:" rendered="#{aplicacionController.renderT_datos_padre}"/>                    
+                    <p:selectOneMenu id="advanced" value="#{aplicacionController.registroT_datos.relacion}" panelStyle="width:180px" required="true"
+                                     rendered="#{aplicacionController.renderT_datos_padre}" effect="fade" style="width:160px">
+                           <f:selectItem itemLabel="" itemValue="" />
+                           <f:selectItems value="#{aplicacionController.selectItemsT_datos_padre}" />
+                   </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Opcion:"/>
+                    <p:inputText value="#{aplicacionController.registroT_datos.descripcion}" style="width: 250px;" 
+                             required="true" requiredMessage="Valor requerido, Desacripcion">
+                    <p:ajax update="@this"></p:ajax>
+                </p:inputText>                    
+                    
+                    <p:outputLabel value="Estado:" rendered="#{aplicacionController.renderActionABM}"/>
+                    <p:selectOneRadio value="#{aplicacionController.tdatoHabilitado}" styleClass="selectRadio" required="#{aplicacionController.renderActionABM}" requiredMessage="Valor requerido, Estado" 
+                                      rendered="#{aplicacionController.renderActionABM}">
+                    <f:selectItem itemLabel="Habilitado" itemValue="true" />
+                    <f:selectItem itemLabel="Deshabilitado" itemValue="false" />
+                    <p:ajax update="@this"></p:ajax>
+                </p:selectOneRadio>
+                   
+               </p:panelGrid> 
+                </div>
+                <div class="ui-fluid">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:commandButton icon="ui-icon-disk" value="Guardar" action="#{aplicacionController.buttonGuardaTdato}" rendered="#{!aplicacionController.renderActionABM}"
+                                update="formulario message" style="width: 150px;" />
+                    <p:commandButton icon="ui-icon-pencil" value="Modificar" action="#{aplicacionController.buttonModificaTdato}" rendered="#{aplicacionController.renderActionABM}"
+                                update="formulario message" style="width: 150px;" />
+                    <p:commandButton icon="ui-icon-closethick" value="Cancelar" action="t_datos_abm_t_datos" immediate="true"
+                                update="formulario message" style="width: 150px;" />
+                    
+                    </p:panelGrid>
+                    
+
+            </div>
+                
+
+            
+           
+        </h:form> 
+
+    </ui:define>
+
+</ui:composition>
