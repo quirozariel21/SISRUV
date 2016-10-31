@@ -5,6 +5,7 @@
  */
 package indicadorescontroller;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,94 +14,64 @@ import java.util.List;
  */
 public class Indicador {
 
-    private String institucion;
-    private String tipoIndicador;
-    private String formulaCalculo;
-    private String desagregacion;
-    // var aux
-    private boolean tieneTipoViolenacia;
-    
-    private List<TipoViolencia>tiposViolencia;
-    private Integer cantidad;
-    
-    private String territorializacion;
-    private String periodoReferencia;
+    private Integer idIndicador;
+    private String titulo;
+    private String descripcion;
+    private String formula;
+    private int gestion;
+    private Date fechaCreacion;
 
-    public String getInstitucion() {
-        return institucion;
+    public Integer getIdIndicador() {
+        return idIndicador;
     }
 
-    public void setInstitucion(String institucion) {
-        this.institucion = institucion;
+    public void setIdIndicador(Integer idIndicador) {
+        this.idIndicador = idIndicador;
     }
 
     
     
-    public String getTipoIndicador() {
-        return tipoIndicador;
+    public Date getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setTipoIndicador(String tipoIndicador) {
-        this.tipoIndicador = tipoIndicador;
-    }
-
-    public String getFormulaCalculo() {
-        return formulaCalculo;
-    }
-
-    public void setFormulaCalculo(String formulaCalculo) {
-        this.formulaCalculo = formulaCalculo;
-    }
-
-    public String getDesagregacion() {
-        return desagregacion;
-    }
-
-    public void setDesagregacion(String desagregacion) {
-        this.desagregacion = desagregacion;
-    }
-
-    public boolean isTieneTipoViolenacia() {
-        return tieneTipoViolenacia;
-    }
-
-    public void setTieneTipoViolenacia(boolean tieneTipoViolenacia) {
-        this.tieneTipoViolenacia = tieneTipoViolenacia;
-    }
-
-    public List<TipoViolencia> getTiposViolencia() {
-        return tiposViolencia;
-    }
-
-    public void setTiposViolencia(List<TipoViolencia> tiposViolencia) {
-        this.tiposViolencia = tiposViolencia;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getTerritorializacion() {
-        return territorializacion;
-    }
-
-    public void setTerritorializacion(String territorializacion) {
-        this.territorializacion = territorializacion;
-    }
-
-    public String getPeriodoReferencia() {
-        return periodoReferencia;
-    }
-
-    public void setPeriodoReferencia(String periodoReferencia) {
-        this.periodoReferencia = periodoReferencia;
-    }
-
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }   
     
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public int getGestion() {
+        return gestion;
+    }
+
+    public void setGestion(int gestion) {
+        this.gestion = gestion;
+    }
+
+
     
     
     
