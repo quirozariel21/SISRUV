@@ -1,0 +1,200 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/plantilla.xhtml">
+
+    <ui:define name="title">
+        <span class="subitem" style="color: #89093E;">Indicadores - </span>  <span class="subitem" style="color: black;"></span>
+    </ui:define>
+
+    <ui:define name="content">
+    
+        <p:growl id="message" sticky="false" life="3000" />  
+        <h:form id="formulario">
+            <div class="ui-fluid">
+                <p:panel id="basic" header="Registro Periodo de Referencia" style="margin-bottom:20px">
+                <p:panelGrid columns="1" 
+                             columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" 
+                             layout="grid" 
+                             styleClass="ui-panelgrid-blank panelNoBorder" 
+                             style="font-size: 11px;" >
+                    
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel  id="labelIndicador" 
+                                        style="width:125px"
+                                        value="Trimestre"                                        
+                                        />
+                      <p:selectOneMenu id="grupoTrimestre" 
+                                       value="#{periodoReferenciaBean.periodoRefencia.trimestre}" 
+                                         required="true"
+                                         style="width:225px"
+                                         styleClass="ui-helper-reset" 
+                                         requiredMessage="Valor requerido, Instituciòn">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItems value="#{periodoReferenciaBean.semestres}"
+                                           var="grupoEdades"
+                                           />                                                                            
+                        </p:selectOneMenu>                        
+                        
+                        <p:outputLabel  value="Grupo de edad:"/>                    
+                        <p:selectOneMenu id="grupoEdad" 
+                                         value="#{periodoReferenciaBean.periodoRefencia.grupoEdad}" 
+                                         required="true"
+                                         style="width:225px"
+                                         styleClass="ui-helper-reset" 
+                                         requiredMessage="Valor requerido, Instituciòn">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItems value="#{periodoReferenciaBean.grupoEdades}"
+                                           var="grupoEdades"
+                                           />
+                            <p:ajax listener="#{indicadoresBean.handleTipoIndicador}"
+                                    update="testContainer"
+                                     />                                                      
+                        </p:selectOneMenu>                    
+                        
+                        <p:outputLabel  value="Nivel territorial:" for="selectNivelTerritorial"/>                    
+                        <p:selectOneMenu id="selectNivelTerritorial" 
+                                         value="#{periodoReferenciaBean.periodoRefencia.nivelTerritorial}" 
+                                         required="true"
+                                         style="width:225px"
+                                         styleClass="ui-helper-reset" 
+                                         requiredMessage="Valor requerido, Instituciòn">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItems value="#{periodoReferenciaBean.nivelTerritorial}"
+                                           var="territorio"
+                                           />                                                                             
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="spinnerMasculino" value="Masculino: " />
+                        <p:spinner stepFactor="0.1" size="3"
+                                   style="width:105px"
+                                   id="spinnerMasculino" 
+                                   value="#{periodoReferenciaBean.periodoRefencia.masculino}" >
+                            
+                            <p:ajax listener="#{periodoReferenciaBean.handleMasculino}"
+                                    update="spinnerTotal" process="@this" event="change"
+                                     />                               
+                        </p:spinner>                        
+                        
+                        <p:outputLabel for="spinnerFemenino" value="Femenino: " />
+                        <p:spinner id="spinnerFemenino" value="#{periodoReferenciaBean.periodoRefencia.femenino}"                                                                       
+                                   style="width:100px"
+                                   stepFactor="0.1" size="3">                              
+                              <p:ajax listener="#{periodoReferenciaBean.handleFemenino}"
+                                      update="spinnerTotal" process="@this" event="change"
+                                     />                                 
+                        </p:spinner>
+                                                    
+                        <p:outputLabel for="spinnerTotal" value="Total: " />
+                        <p:spinner id="spinnerTotal"                                   
+                                   style="width:100px"   
+                                   readonly="true" size="2"
+                                   value="#{periodoReferenciaBean.periodoRefencia.total}" >
+                            
+                        </p:spinner>                         
+                        
+                    </h:panelGrid>
+                    
+                  <p:outputPanel id="testContainer" >                        
+                        <p:commandButton id="idGuardar"
+                                      value="Guardar" 
+                                      style="width: 250px;"
+                                      actionListener="#{periodoReferenciaBean.guardarPeriodoReferencia()}"
+                                      icon="ui-icon-check"   
+                                      update="formulario"                                      
+                                       />                                              
+                    </p:outputPanel>                                                                                                                                                                                
+                </p:panelGrid> 
+              </p:panel>
+            </div>
+            
+            <div class="ui-fluid">
+                <p:panelGrid columns="1" layout="grid" 
+                             styleClass="ui-panelgrid-blank panelNoBorder" 
+                             style="font-size: 11px;width: 100%" 
+                             id="panelDataPeriodoReferencia"> 
+                    
+                    <p:dataTable id="tableBase" var="periodoReferencia" 
+                                 value="#{periodoReferenciaBean.dataPeriodoReferencia}" >   
+                        <f:facet name="header">
+                            Lista de los Periodos de Referencia
+                        </f:facet>
+                        <p:column headerText="Trimestre">
+                            <h:outputText value="#{periodoReferencia.trimestre}" />
+                        </p:column> 
+                        <p:column headerText="Grupo de edad">
+                            <h:outputText value="#{periodoReferencia.grupoEdad}" 
+                                         style="width: 90%" 
+                                         />
+                        </p:column>
+                        <p:column headerText="Nivel territorial">
+                            <h:outputText value="#{periodoReferencia.nivelTerritorial}" />
+                        </p:column>                        
+                        <p:column headerText="Maculino">
+                            <h:outputText value="#{periodoReferencia.masculino}" />
+                        </p:column>
+                        <p:column headerText="Femenino">
+                            <h:outputText value="#{periodoReferencia.femenino}" />
+                        </p:column>   
+                        <p:column headerText="Total">
+                            <h:outputText value="#{periodoReferencia.total}" />
+                        </p:column>                          
+                        <p:column headerText="Accion">                            
+                             <p:commandButton update=":formulario:carDetail" 
+                                              oncomplete="PF('chartDialog').show()" 
+                                              icon="ui-icon-search" 
+                                              title="Ver Grafico">
+                                 <f:setPropertyActionListener value="#{periodoReferencia}"
+                                                              target="#{periodoReferenciaBean.periodoReferenciaAux}"
+                                                              />
+                            </p:commandButton>
+                        </p:column>                         
+                    </p:dataTable>  
+                            <p:commandButton update=":formulario:carDetail1" 
+                                              oncomplete="PF('chartDialog1').show()" 
+                                              icon="ui-icon-search" 
+                                              style="width: 50%"
+                                              value="Ver Serie de tiempo"
+                                              title="Ver Serie de tiempo">                           
+                            </p:commandButton>
+                </p:panelGrid>
+                
+  
+                
+                
+            </div>              
+
+               <p:dialog header="Grafico"               
+                  widgetVar="chartDialog" 
+                  modal="true" 
+                  width="400"
+                  height="300"
+                  resizable="true">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:chart type="pie" model="#{periodoReferenciaBean.pieModel1}" style="width:350px;height:250px" />
+                    </p:outputPanel>
+                </p:dialog>   
+            
+               <p:dialog header="Grafico"               
+                  widgetVar="chartDialog1" 
+                  modal="true" 
+                  width="400"
+                  height="300"
+                  resizable="true">
+                    <p:outputPanel id="carDetail1" style="text-align:center;">
+                        <p:chart type="line" model="#{periodoReferenciaBean.lineModel1}" style="height:300px;"/>
+                    </p:outputPanel>
+                </p:dialog>             
+   
+            
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
+
+
+
