@@ -202,9 +202,8 @@ public class DenunciaController implements Serializable {
     
     
     public String actionMenuItemMotivo() {
-        String res = null;
-        System.out.println("fecha de registro:" + base_model.getUsuario_vicagre().getFecha_reg());
-
+        String res = null;        
+        
         if (listaSelect.size() > 0) {
             String idiomas = "";
             Integer contador = 0;
@@ -220,9 +219,8 @@ public class DenunciaController implements Serializable {
             base_model.getPersonaVariableVictima().setIdiomas(idiomas);
             res = "fi_fii";
         } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atencion: Necesita seleccionar un idioma por lo menos", "Necesita seleccionar un idioma po lo menos");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            System.out.println("error");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atencion: Seleccione al menos un idioma", "Seleccione al menos un idioma");
+            FacesContext.getCurrentInstance().addMessage(null, message);            
         }
         return res;
     }
@@ -272,9 +270,11 @@ public class DenunciaController implements Serializable {
 
     public void handleCIChange() {
         this.flag_DocIden = false;
-        System.out.println("adfffff"+base_model.getPersonaVictima().getCodigo_documento());
-        if (base_model.getPersonaVictima().getCodigo_documento() != null) {
+        System.out.println("CodigoDocumento:"+ base_model.getPersonaVictima().getCodigo_documento());
+        if (base_model.getPersonaVictima().getCodigo_documento() != null ) {
             this.flag_DocIden = true;
+        }else{
+            base_model.getPersonaVictima().setCodigo_documento(null);
         }
     }
 
@@ -662,8 +662,9 @@ public class DenunciaController implements Serializable {
             }
         }
 
-        if (eLugNac.equals("Otro Pais")) {
+        if (eLugNac.equalsIgnoreCase("Otro Pais")||eLugNac.equalsIgnoreCase("Otro municipio")) {
             this.setFlag_LNac(true);
+            flag_LNac=true;
         }
     }
 
@@ -671,6 +672,8 @@ public class DenunciaController implements Serializable {
         this.flag_Municipio = false;
         if (this.selectOneRadioMunicio.equals("1")) {
             this.flag_Municipio = true;
+        }else{
+            base_model.getPersonaVariableVictima().setEsp_municipio("");
         }
     }
 

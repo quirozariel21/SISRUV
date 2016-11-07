@@ -33,17 +33,30 @@
         <p:growl id="message" sticky="false" life="3000" />
 
         <h:form id="formulario">
-            <p:tabMenu activeIndex="2" style="font-size: 12px;">                             
+            <p:tabMenu activeIndex="2" style="font-size: 10px;">                             
 
-                <p:menuitem onclick="PF('inf_2')" value="#{msg.recepcion_caso}" action="#{denunciaController.action_formiii_formi}" update="message" immediate="true" icon="ui-icon-copy" >
+                <p:menuitem onclick="PF('inf_2')" 
+                            value="#{msg.recepcion_caso}" 
+                            action="#{denunciaController.action_formiii_formi}" 
+                            update="message"
+                            style="width: 390px;"
+                            immediate="true" icon="ui-icon-copy" >
                     <p:confirm header="Confirmacion" message="Esta seguro de salir de esta opcion?" icon="ui-icon-alert" /> 
                 </p:menuitem>
 
-                <p:menuitem onclick="PF('inf_1')" value="#{msg.titulo_relacion}" action="#{denunciaController.action_formiii_formii}" update="message" immediate="true" icon="ui-icon-copy" >
+                <p:menuitem onclick="PF('inf_1')" 
+                            value="#{msg.titulo_relacion}"
+                            style="width: 300px;"
+                            action="#{denunciaController.action_formiii_formii}" 
+                            update="message" 
+                            immediate="true" 
+                            icon="ui-icon-copy" >
                     <p:confirm header="Confirmacion" message="Esta seguro de salir de esta opcion?" icon="ui-icon-alert" /> 
                 </p:menuitem>
 
-                <p:menuitem value="#{msg.datos_agresor}" icon="ui-icon-person"/>
+                <p:menuitem value="#{msg.datos_agresor}" 
+                            style="width: 130px;"
+                            icon="ui-icon-person"/>
             </p:tabMenu> 
 
             <h5 style="font-weight:bold;">#{msg.identificacion_personal}</h5>
@@ -51,14 +64,21 @@
             <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
 
                 <p:outputLabel  value="Documento de Identidad:"/>
-                <p:selectOneMenu id="docAgr12" value="#{denunciaController.base_model.personaAgresor.codigo_documento}" styleClass="ui-helper-reset">
+                <p:selectOneMenu id="docAgr12" 
+                                 value="#{denunciaController.base_model.personaAgresor.codigo_documento}" 
+                                 styleClass="ui-helper-reset"
+                                  style="width: 200px;" >
                     <f:selectItem itemLabel="Seleccione" itemValue="" />
                     <f:selectItems value="#{t_datosController.itemDocumento}"/>
                     <p:ajax update="formulario" listener="#{denunciaController.handleCIChange_agre}"/>
                     <p:ajax update="@this"></p:ajax>
                 </p:selectOneMenu>
+                
                 <p:outputLabel value="Número Documento:" rendered="#{denunciaController.flag_DocIdenAgresor}"/>
-                <p:inputText id="nuDocm1" value="#{denunciaController.base_model.personaAgresor.numero}" style="width: 90%" rendered="#{denunciaController.flag_DocIdenAgresor}">
+                <p:inputText id="nuDocm1" 
+                             value="#{denunciaController.base_model.personaAgresor.numero}" 
+                              style="width: 200px;" 
+                             rendered="#{denunciaController.flag_DocIdenAgresor}">
                     <p:ajax event="blur" update="formulario" listener="#{denunciaController.handleKeyEventVerificaCIAgresor}" />
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
@@ -66,16 +86,25 @@
             </p:panelGrid>
                 </div>
 <div class="ui-fluid">
+    
             <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
                 <p:outputLabel value="Sexo:" for="sVR"/>
-                <p:selectOneMenu id="sVR" value="#{denunciaController.base_model.personaAgresor.sexo}" required="true" requiredMessage="Valor requerido, Sexo">
+                <p:selectOneMenu id="sVR" value="#{denunciaController.base_model.personaAgresor.sexo}" 
+                                 required="true"
+                                  style="width: 200px;" 
+                                 requiredMessage="Valor requerido, Sexo">
                     <p:ajax listener="#{denunciaController.onCountryChange_agresor}" update="formulario" />
                     <f:selectItem itemLabel="Seleccione" itemValue="" />
                     <f:selectItem itemLabel="Mujer" itemValue="M" />
                     <f:selectItem itemLabel="Hombre" itemValue="H" />
                 </p:selectOneMenu>
+                
                 <p:outputLabel value="Estado Civil:" for="esCVr"/>
-                <p:selectOneMenu id="esCVr" value="#{denunciaController.base_model.personaVariableAgresor.est_civil}" required="true" requiredMessage="Valor requerido, Estado Civil">
+                <p:selectOneMenu id="esCVr" 
+                                 value="#{denunciaController.base_model.personaVariableAgresor.est_civil}" 
+                                 required="true"
+                                  style="width: 200px;" 
+                                 requiredMessage="Valor requerido, Estado Civil">
                     <f:selectItem itemLabel="Seleccione" itemValue="" />
                     <f:selectItems value="#{t_datosController.itemECiivil}"/>
                     <p:ajax listener="#{denunciaController.onCountryChange_agresor}" update="formulario" />
@@ -85,52 +114,84 @@
 <div class="ui-fluid">
             <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
                 <p:outputLabel value="Nombre(s):" for="nCAgre11"/>
-                <p:inputText id="nCAgre11" value="#{denunciaController.base_model.personaAgresor.nombre}" style="width: 90%" required="true" requiredMessage="Valor requerido, Nombre(s)">
+                <p:inputText id="nCAgre11" 
+                             value="#{denunciaController.base_model.personaAgresor.nombre}" 
+                              style="width: 200px;" 
+                             required="true" 
+                             requiredMessage="Valor requerido, Nombre(s)">
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
-                <p:outputLabel value="1er Apellido:" for="aPAgr11"/>
-                <p:inputText id="aPAgr11" value="#{denunciaController.base_model.personaAgresor.paterno}" style="width: 90%" required="true" requiredMessage="Valor requerido, 1er Apellido">
+                
+                <p:outputLabel value="Primer Apellido:" for="aPAgr11"/>
+                <p:inputText id="aPAgr11" 
+                             value="#{denunciaController.base_model.personaAgresor.paterno}" 
+                              style="width: 200px;" 
+                             required="true" 
+                             requiredMessage="Valor requerido, Primer Apellido">
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
-                <p:outputLabel value="2do Apellido:"/>
-                <p:inputText value="#{denunciaController.base_model.personaAgresor.materno}" style="width: 90%">  
+                
+                <p:outputLabel value="Segundo Apellido:"/>
+                <p:inputText value="#{denunciaController.base_model.personaAgresor.materno}" 
+                              style="width: 200px;" >  
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
+                
                 <p:outputLabel value="Apellido de Casada:" rendered="#{denunciaController.flag_ApCasadaAgresor}"/>
-                <p:inputText value="#{denunciaController.base_model.personaAgresor.ap_casada}" style="width: 90%" rendered="#{denunciaController.flag_ApCasadaAgresor}">
+                <p:inputText value="#{denunciaController.base_model.personaAgresor.ap_casada}" 
+                              style="width: 200px;"  
+                              rendered="#{denunciaController.flag_ApCasadaAgresor}">
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
             </p:panelGrid>
     </div>
 <div class="ui-fluid">
-            <p:panelGrid columns="6" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
-                <p:outputLabel value="Fecha Nacimiento:" for="calendar_fecha_nac"/>
-                
-                    <p:calendar id="calendar_fecha_nac" value="#{denunciaController.base_model.personaAgresor.fecha_nac}" locale="es" navigator="true" placeholder="Dia-Mes-Año"
-                                pattern="dd-MM-yyyy"  yearRange="1900:2050" mask="true" required="true" requiredMessage="Valor requerido, Fecha Nacimiento">
-                        <p:ajax event="change" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
-                        <p:ajax event="dateSelect" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
-                    </p:calendar>
+            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
               
-
                 <p:outputLabel value="Lugar de Nacimiento:" for="somLNac"/>
-                <p:selectOneMenu id="somLNac" value="#{denunciaController.base_model.personaAgresor.lugar_nac}" styleClass="ui-helper-reset" required="true" requiredMessage="Valor requerido, Lugar Nacimiento">
+                <p:selectOneMenu id="somLNac" 
+                                 value="#{denunciaController.base_model.personaAgresor.lugar_nac}" 
+                                 styleClass="ui-helper-reset" 
+                                 style="width: 200px;" 
+                                 required="true" 
+                                 requiredMessage="Valor requerido, Lugar Nacimiento">
                     <f:selectItem itemLabel="Seleccione" itemValue="" />
                     <f:selectItems value="#{t_datosController.itemLugar}"/>
                     <p:ajax update="formulario" listener="#{denunciaController.handleLNacChange_agre()}"/>
                 </p:selectOneMenu>
-                <p:outputLabel value="Especifique Lugar:" rendered="#{denunciaController.flag_LNacAgresor}"/>
-                <p:inputText value="#{denunciaController.base_model.personaAgresor.esp_lugar_nac}" style="width: 90%" rendered="#{denunciaController.flag_LNacAgresor}">
+                
+                <p:outputLabel value="Especifique Lugar:" rendered="#{denunciaController.flag_LNac}"/>
+                <p:inputText  id="inputEspcLug"
+                              value="#{denunciaController.base_model.personaAgresor.esp_lugar_nac}" 
+                              style="width: 200px;" 
+                              rendered="#{denunciaController.flag_LNac}">
                     <p:ajax update="@this"></p:ajax>
                 </p:inputText>
             </p:panelGrid>
     </div>
-<div class="ui-fluid">
-            <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+    <div class="ui-fluid">
+        <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
+                <p:outputLabel value="Fecha Nacimiento:" for="calendar_fecha_nac"/>                
+                <p:calendar id="calendar_fecha_nac" 
+                            value="#{denunciaController.base_model.personaAgresor.fecha_nac}" 
+                            locale="es" navigator="true" 
+                            placeholder="Dia-Mes-Año"
+                             style="width: 200px;" 
+                            pattern="dd-MM-yyyy"  yearRange="1900:2050" mask="true" required="true" requiredMessage="Valor requerido, Fecha Nacimiento">
+                    <p:ajax event="change" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
+                    <p:ajax event="dateSelect" process="@this" listener="#{denunciaController.calcular_edad_agresor()}" update="@this formulario"/>
+                </p:calendar>                
+                
                 <p:outputLabel value="Edad:" for="edaGR"/>
-                <p:inputText id="edaGR" value="#{denunciaController.base_model.personaVariableAgresor.edad}" style="width: 70px;" readonly="true"  required="true" requiredMessage="Valor requerido, Edad"/>
-            </p:panelGrid>
-</div>
+                <p:inputText id="edaGR" 
+                             value="#{denunciaController.base_model.personaVariableAgresor.edad}" 
+                             style="width: 70px;" 
+                             readonly="true"  
+                             required="true" 
+                             requiredMessage="Valor requerido, Edad"/>
+        </p:panelGrid>
+    </div>
+            
             <h5 style="font-weight:bold;">#{msg.lugar_donde_vive}</h5> 
             <div class="ui-fluid">
             <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" > 
@@ -227,8 +288,13 @@
                     <p:ajax update="@this"></p:ajax>
                 </p:selectOneMenu>
                 <p:outputLabel value="Monto Aprox. Percibe (Bs):"/>
-                <p:inputText id="itMonPersive" value="#{denunciaController.base_model.personaVariableAgresor.monto_aprox_bs}" style="width: 50%">
-                    <p:ajax update="@this"></p:ajax>
+                <p:inputText id="itMonPersive" 
+                             value="#{denunciaController.base_model.personaVariableAgresor.monto_aprox_bs}" 
+                             size="8"
+                             maxlength="8"
+                             converterMessage="Monto Aprox. invalido"
+                             style="width: 50%">
+                    <f:validateDoubleRange minimum="1" maximum="20000" />                                                                              
                 </p:inputText>
 
             </p:panelGrid>
@@ -320,22 +386,30 @@
     </div>
 </ui:remove>     
         <br/> <br/>             
-    <div class="ui-fluid">
-            <p:panelGrid columns="1" style="width: 100%; text-align:right">
-                <p:row>
-                    <p:column>
-                        <p:commandButton icon="ui-icon-seek-prev" onclick="PF('inf_1')" value="Anterior" action="#{denunciaController.action_formiii_formii}" style="width: 150px;" update="message" immediate="true">
-                            <p:confirm header="Confirmacion" message="Esta seguro de salir de esta opcion?" icon="ui-icon-alert" />  
-                        </p:commandButton>
-                        <p:commandButton value="Modificar" action="#{denunciaController.update_registro()}" update="formulario" icon="ui-icon-disk" rendered="#{denunciaController.flagOpcion}"></p:commandButton>
-                        <p:commandButton value="Guardar" actionListener="#{denunciaController.add_victima_relacion_agresor()}" rendered="#{!denunciaController.flagOpcion}" 
-                                         icon="ui-icon-disk" style="width: 150px;" update="dialog message formulario"/>       
-
-                    </p:column>
-                </p:row>
-
-            </p:panelGrid>
-    </div>
+            <div class="ui-fluid;width: 100%; text-align:right">
+                <p:outputPanel style="width: 100%; text-align:right">   
+                    <p:commandButton icon="ui-icon-seek-prev" 
+                                     onclick="PF('inf_1')" 
+                                     value="Anterior" 
+                                     action="#{denunciaController.action_formiii_formii}" 
+                                     style="width: 150px;" 
+                                     update="message" immediate="true">
+                        <p:confirm header="Confirmacion" 
+                                   message="Esta seguro de salir de esta opcion?" 
+                                   icon="ui-icon-alert" />  
+                    </p:commandButton>
+                    <p:commandButton value="Modificar" 
+                                     action="#{denunciaController.update_registro()}" 
+                                     update="formulario" 
+                                     icon="ui-icon-disk" 
+                                     rendered="#{denunciaController.flagOpcion}">
+                    </p:commandButton>
+                    <p:commandButton value="Guardar" 
+                                     actionListener="#{denunciaController.add_victima_relacion_agresor()}" 
+                                     rendered="#{!denunciaController.flagOpcion}" 
+                                     icon="ui-icon-disk" style="width: 150px;" update="dialog message formulario"/>                          
+                </p:outputPanel>
+            </div>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="inf_1">
                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

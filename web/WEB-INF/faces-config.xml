@@ -182,6 +182,15 @@
         </navigation-case>       
     </navigation-rule> 
     
+    <navigation-rule>
+            <from-view-id>indicadores/indicadores.xhtml</from-view-id>
+            <navigation-case>
+                    <from-outcome>periodoReferencia</from-outcome>
+                    <to-view-id>indicadores/periodoReferencia.xhtml</to-view-id>
+                    <redirect />
+            </navigation-case>
+    </navigation-rule>    
+    
 <!--FIN SRUV-->         
 
 <!--inicio Edit Boris LA VISTA DE DENUNCIAS 

@@ -32,12 +32,20 @@
 
         <h:form id="formulario">
 
-            <p:tabMenu activeIndex="1" style="font-size: 13px;">
-                <p:menuitem immediate="true" value="#{msg.recepcion_caso}" action="fii_fi" icon="ui-icon-person" update="formulario"/>                              
-                <p:menuitem value="#{msg.titulo_relacion}" icon="ui-icon-copy"/>
-                <p:menuitem value="#{msg.datos_agresor}" actionListener="#{denunciaController.actionMenuItemAgresor()}" 
-                            disabled="#{!denunciaController.flagItemPerfilAgresor}" icon="ui-icon-person" update="formulario"/>
-               
+            <p:tabMenu activeIndex="1" style="font-size: 10px;">
+                <p:menuitem immediate="true" value="#{msg.recepcion_caso}" 
+                            action="fii_fi"
+                            style="width: 390px;"
+                            icon="ui-icon-person" update="formulario"/>                              
+                <p:menuitem value="#{msg.titulo_relacion}" 
+                            icon="ui-icon-copy"
+                            style="width: 300px;"/>
+                <p:menuitem value="#{msg.datos_agresor}"
+                            style="width: 130px;"
+                            actionListener="#{denunciaController.actionMenuItemAgresor()}" 
+                            disabled="#{!denunciaController.flagItemPerfilAgresor}" 
+                            icon="ui-icon-person" 
+                            update="formulario"/>               
             </p:tabMenu>
             
             <br></br>
@@ -397,23 +405,21 @@
 
             </p:panelGrid> 
                 </div>
-                <div class="ui-fluid">
-            <p:panelGrid columns="1" style="width: 100%; text-align:right">
-                <p:row>
-                    <p:column>
-                        <p:commandButton value="Anterior" action="fii_fi" immediate="true"
-                                         icon="ui-icon-seek-prev" style="width: 150px;"/>
-                        <p:commandButton value="Modificar" action="#{denunciaController.update_vic()}" icon="ui-icon-disk" update=":dialog_confima_add message" rendered="#{denunciaController.flagOpcion}"></p:commandButton>
-                        <p:commandButton value="Guardar" actionListener="#{denunciaController.add_victima_relacion()}" 
-                                         icon="ui-icon-disk" style="width: 150px;" update="formulario :dialog_confima_add message" rendered="#{!denunciaController.flagOpcion}"/>
-                        <p:commandButton value="Siguiente" action="#{denunciaController.boton_dialog_form3}" style="width: 150px;" update="formulario message" icon="ui-icon-seek-next">
-                            <p:confirm  header="Confirmación" message="Esta seguro de seguir?" icon="ui-icon-alert" />
-                        </p:commandButton>
-
-                    </p:column>
-                </p:row>
-            </p:panelGrid>
-</div>
+                        
+            <div class="ui-fluid;width: 100%; text-align:right">
+                <p:outputPanel   style="width: 100%; text-align:right">                    
+                            <p:commandButton value="Anterior" action="fii_fi" immediate="true"
+                                             icon="ui-icon-seek-prev" style="width: 150px;"/>
+                            <p:commandButton value="Modificar" action="#{denunciaController.update_vic()}" icon="ui-icon-disk" update=":dialog_confima_add message" rendered="#{denunciaController.flagOpcion}"></p:commandButton>
+                            <p:commandButton value="Guardar" actionListener="#{denunciaController.add_victima_relacion()}" 
+                                             icon="ui-icon-disk" style="width: 150px;" update="formulario :dialog_confima_add message" rendered="#{!denunciaController.flagOpcion}"/>
+                            <p:commandButton value="Siguiente" action="#{denunciaController.boton_dialog_form3}" style="width: 150px;" update="formulario message" icon="ui-icon-seek-next">
+                                <p:confirm  header="Confirmación" message="Esta seguro de seguir?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                </p:outputPanel>
+                        
+                
+            </div>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="inf_1">
                 <center>
                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>

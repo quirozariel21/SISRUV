@@ -5,12 +5,9 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/plantilla.xhtml">
 
-
     <ui:define name="title">
         <span class="subitem" style="color: #89093E;">Busqueda - </span>  <span class="subitem" style="color: black;">CI, Nombres, Otros</span>
     </ui:define>
-
-
 
     <ui:define name="implementation">        
         <p:growl id="message" sticky="false" life="3000" />
@@ -20,29 +17,39 @@
             <p:growl id="growl" life="2000" />
             
             <div class="ui-fluid">
-
-            <p:panelGrid columns="8" columnClasses="ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-2" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
-                <p:outputLabel style="font-size: 12px;" value="CI:"/>
-                <p:inputText id="aCI" value="#{denunciaController.filtro_persona.numero}"/>
-                <p:outputLabel style="font-size: 12px;" value="1er Apellido:" />
-                <p:inputText id="aPat" value="#{denunciaController.filtro_persona.paterno}"/>
-                <p:outputLabel style="font-size: 12px;" value="2do Apellido:"/>
-                <p:inputText id="aMat" value="#{denunciaController.filtro_persona.materno}"/>
-                <p:outputLabel style="font-size: 12px;" value="Nombre (s):"/>
-                <p:inputText id="Nomb" value="#{denunciaController.filtro_persona.nombre}"/>
-            </p:panelGrid>
-                </div>
+                <p:panel header="Buscar registro">
+                   <h:panelGrid columns="4" cellpadding="5">
+                    <p:outputLabel style="font-size: 12px;" value="Documento de identificacion:"/>
+                    <p:inputText id="aCI" value="#{denunciaController.filtro_persona.numero}"/>
+                    <p:outputLabel style="font-size: 12px;" value="Primer Apellido:" />
+                    <p:inputText id="aPat" value="#{denunciaController.filtro_persona.paterno}"/>
+                    <p:outputLabel style="font-size: 12px;" value="Segundo Apellido:"/>
+                    <p:inputText id="aMat" value="#{denunciaController.filtro_persona.materno}"/>
+                    <p:outputLabel style="font-size: 12px;" value="Nombre (s):"/>
+                    <p:inputText id="Nomb" value="#{denunciaController.filtro_persona.nombre}"/>     
+                   </h:panelGrid> 
+                </p:panel>            
+            </div>
+            <br/>
             <div class="ui-fluid">
-            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >
-                <p:commandButton update=":formulario" value="Buscar" actionListener="#{denunciaController.find()}" icon="ui-icon-search" style="width: 150px;"/>
-<!--                <p:commandButton update=":formulario" value="Registro" action="agreg" style="width: 150px;"/>-->
-
-            </p:panelGrid>
-                </div>
+                <p:outputPanel style="width: 100%; text-align:right">  
+                   <p:commandButton update=":formulario" value="Buscar" 
+                                    actionListener="#{denunciaController.find()}" 
+                                    icon="ui-icon-search" 
+                                    style="width: 150px;"/>
+               </p:outputPanel>
+            </div>
            <br/>
 
-            <p:dataTable id="tableBase" var="busca" value="#{denunciaController.list_base_models}" selectionMode="single" reflow="true" rows="10" paginator="true" 
-                         emptyMessage="No se encontrarón archivos." selection="#{denunciaController.selectedBaseModel}" rowKey="#{busca.usuario_vicagre.victima_agresor_id_vicagre}">
+            <p:dataTable id="tableBase" var="busca" 
+                         value="#{denunciaController.list_base_models}" 
+                         selectionMode="single" 
+                         reflow="true" 
+                         rows="10" 
+                         paginator="true" 
+                         emptyMessage="No se encontrarón archivos." 
+                         selection="#{denunciaController.selectedBaseModel}" 
+                         rowKey="#{busca.usuario_vicagre.victima_agresor_id_vicagre}">
                 <f:facet name="header">
                     Lista de Registros
                 </f:facet>

@@ -5,6 +5,9 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/plantilla.xhtml">
 
+
+    
+    
     <ui:define name="title">
         <span class="subitem" style="color: #89093E;">Registro - </span>  <span class="subitem" style="color: black;">Formulario RUV</span>
     </ui:define>
@@ -14,10 +17,13 @@
 
         <h:form id="formulario">
             <p:tabMenu activeIndex="0" style="font-size: 12px;">
-                <p:menuitem value="#{msg.recepcion_caso}" icon="ui-icon-person"/>                                
-                <p:menuitem value="#{msg.titulo_relacion}" action="#{denunciaController.actionMenuItemMotivo()}" icon="ui-icon-copy" update="message" />
+                <p:menuitem value="#{msg.recepcion_caso}" icon="ui-icon-pe"
+                           style="margin-top: -4px; height: 22px;color: white;background-color:#333367" />                                
+                <p:menuitem value="#{msg.titulo_relacion}" action="#{denunciaController.actionMenuItemMotivo()}"
+                            icon="ui-icon-copy" update="message" />
                 <p:menuitem value="#{msg.datos_agresor}" actionListener="#{denunciaController.actionMenuItemAgresor()}" 
-                            disabled="#{!denunciaController.flagItemPerfilAgresor}" icon="ui-icon-person" />                                
+                            disabled="#{!denunciaController.flagItemPerfilAgresor}" 
+                            icon="ui-icon-person" />                                
             </p:tabMenu>
             <h5 style="font-weight:bold;">#{msg.datos_registro}</h5>
             <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-5" layout="grid" styleClass="ui-panelgrid-blank panelNoBorder" >

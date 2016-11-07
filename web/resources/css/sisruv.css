@@ -1,0 +1,16 @@
+
+.calendarClass {
+   width: 100px;
+}
+
+.ui-fluid .ui-calendar, .ui-fluid .ui-calendar {
+    width: 50px !important
+}
+
+input.customTxtWidth150px{
+    width:150px !important;
+}
+
+#fecha_registro{
+    width: 50px !important
+}
